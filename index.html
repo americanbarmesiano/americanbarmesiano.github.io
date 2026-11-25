@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>American Bar Mesiano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE warm neighbourhood bar of football fans, proud and friendly
+   IDEA the bar's own room: the round coffee badge, stadium scarves strung across the ceiling, shirts hanging overhead
+   PICTURE the real interior photo under a brown wash with the logo badge large on it; scarf bands and a row of hanging shirts
+   COLOUR logo brown, cream, peach; scarf black and white; ochre wall for the info band
+   TYPE Alfa Slab One like the badge lettering, Oswald for scarf text, Work Sans for reading
+   LAYOUT nav, photo hero with badge, scarf, shirts + menu card, the room photo, info cards, scarf, footer; one column on phone */
+:root{color-scheme:light dark;--bg:light-dark(#fffcdf,#1c120c);--ink:light-dark(#3a1a0c,#fbf3d8);--soft:light-dark(#6e4a36,#d2bfa4);--brown:#723018;--brown2:#55220f;--peach:#e9a46b;--cream:#fffcdf;--ochre:light-dark(#efd27a,#2a1b11);--panel:light-dark(#fff6d2,#2a1b11);--line:light-dark(#e6d3a6,#4a2f1f);--wood:#8a5a35}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Work Sans",system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+nav{position:sticky;top:0;z-index:5;background:var(--brown);color:var(--cream);padding:0 max(5vw,16px);border-bottom:4px solid var(--peach)}
+nav .wrap{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;min-height:60px}
+nav .logo{display:flex;align-items:center;gap:10px;font-family:"Alfa Slab One",Georgia,serif;font-size:20px;text-decoration:none;margin-right:auto}
+nav .logo img{width:40px;height:40px;border-radius:50%;border:2px solid var(--peach)}
+nav .links{display:flex;gap:2px;flex-wrap:wrap}
+nav .links a{text-decoration:none;font-weight:600;font-size:15px;padding:10px 12px;border-radius:6px;min-height:44px;display:inline-flex;align-items:center}
+nav .links a:hover,nav .links a:focus-visible{background:var(--brown2);outline:none;color:var(--peach)}
+.hero{position:relative;min-height:clamp(440px,70vh,640px);display:grid;place-items:center;text-align:center;color:var(--cream);overflow:hidden;background:var(--brown2)}
+.hero>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#8a3d1f 0%,#55220f 45%,#2a1007 100%),repeating-radial-gradient(circle at 50% 38%,transparent 0 38px,#e9a46b14 38px 40px);background-blend-mode:normal}
+.hero::after{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 38%,transparent 0 46px,#e9a46b12 46px 48px)}
+.hero .in{position:relative;z-index:1;padding:40px 16px}
+.badge{width:clamp(170px,28vw,250px);aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 6px var(--peach),0 18px 40px #0008;animation:pop .9s ease-out both}
+@keyframes pop{from{transform:scale(.85) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+.hero h1{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(40px,7vw,72px);line-height:1.05;margin:22px 0 0;text-wrap:balance;color:var(--cream)}
+.hero h1 span{color:var(--peach)}
+.hero p{margin:10px auto 0;font-size:18px;max-width:34em;color:#f3e6c4}
+.status{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:8px 16px;border-radius:999px;background:#fffcdf1f;border:1px solid #fffcdf55;font-weight:600;font-size:15px}
+.status i{width:10px;height:10px;border-radius:50%;background:#b9ab95}
+.status.open i{background:#3ccf73;box-shadow:0 0 0 4px #3ccf7340}
+.hero .btn{margin-left:8px}
+.scarf{display:block;width:100%;height:clamp(54px,7vw,76px)}
+.menu-band{background:var(--brown);color:var(--cream);padding-top:0}
+.shirts{display:block;width:100%;max-width:980px;height:clamp(100px,16vw,150px);margin:0 auto}
+.board{background:var(--cream);color:#3a1a0c;border:12px solid var(--wood);border-radius:8px;box-shadow:0 14px 40px #0006,inset 0 0 0 2px #72301822;padding:clamp(20px,3.5vw,44px);max-width:980px;margin:0 auto}
+.board h2{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(34px,5vw,48px);line-height:1.05;margin:0;text-align:center;color:var(--brown)}
+.board .date{text-align:center;font-family:"Oswald",sans-serif;font-weight:500;font-size:20px;color:#a35a2c;margin:6px 0 0}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 48px;margin-top:16px}
+.sec h3{font-family:"Oswald",sans-serif;font-weight:700;font-size:22px;margin:18px 0 6px;padding:4px 12px;background:var(--brown);color:var(--cream);border-radius:4px;display:inline-block}
+.sec ul{list-style:none;margin:0;padding:0}
+.sec li{display:flex;align-items:baseline;gap:10px;font-size:17px;padding:6px 0;border-bottom:1px solid #72301822}
+.sec li .dots{flex:1 1 20px;border-bottom:2px dotted #72301855;transform:translateY(-4px)}
+.sec li .p{white-space:nowrap;color:var(--brown);font-weight:700}
+.note{text-align:center;font-size:14px;color:#6e4a36;margin:22px 0 0}
+.room{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+.room figure{margin:0;border-radius:12px;overflow:hidden;box-shadow:0 0 0 6px var(--brown),0 16px 36px #3a1a0c40}
+.room figure img{display:block;width:100%;height:auto}
+.room h2,.card h2{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;color:var(--brown);line-height:1.05}
+:root[data-theme=dark] .room h2,:root[data-theme=dark] .card h2{color:var(--peach)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .room h2,:root:not([data-theme=light]) .card h2{color:var(--peach)}}
+.room h2{font-size:clamp(32px,4.5vw,44px);margin:0 0 12px}
+.room p{margin:0 0 12px;color:var(--soft);font-size:17px;max-width:34em}
+.info-band{background:var(--ochre)}
+.info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 6px 0 var(--brown)}
+.card h2{font-size:28px;margin:0 0 10px}
+.card .big{font-size:30px;font-weight:600;white-space:nowrap;margin:4px 0}
+.card p{margin:6px 0;color:var(--soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;margin-top:12px;border-radius:8px;background:var(--brown);color:var(--cream);text-decoration:none;font-weight:600}
+.btn:hover,.btn:focus-visible{background:var(--brown2);outline:3px solid var(--peach)}
+.btn.alt{background:var(--peach);color:#3a1a0c}
+footer{background:#111;color:#eee;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px}
+footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin-right:10px}
+@media(max-width:860px){.info{grid-template-columns:minmax(0,1fr)}.room{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.cols{grid-template-columns:minmax(0,1fr)}nav .logo span{font-size:17px}nav .links a{padding:10px 8px;font-size:14px}.hero .btn{margin-left:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.badge{animation:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#top"><img src="logo.jpg" alt=""><span>American Bar</span></a>
+  <div class="links"><a href="#menu">Menù</a><a href="#locale">Il locale</a><a href="#orari">Orari</a><a href="#dove">Dove siamo</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="in">
+    <img class="badge" src="logo.jpg" alt="Logo American Bar Mesiano">
+    <h1>American Bar <span>Mesiano</span></h1>
+    <p>Caffè, colazioni e pranzo fatto in casa, tra sciarpe e maglie bianconere.</p>
+    <div><span class="status" id="status"><i></i><span>Aperto dalle 5:30 alle 15:30</span></span><a class="btn alt" href="#menu">Menù di oggi</a></div>
+  </div>
+</header>
+
+<svg class="scarf" id="scarf1" viewBox="0 0 1200 76" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+
+<section class="band menu-band" id="menu">
+  <svg class="shirts" viewBox="0 0 980 150" aria-hidden="true">
+    <defs>
+      <path id="tee" d="M-34 0l-30 14 12 30 18-8v70h68v-70l18 8 12-30-30-14c-6 10-16 14-24 14s-18-4-24-14z"/>
+      <pattern id="str" width="16" height="10" patternUnits="userSpaceOnUse"><rect width="8" height="10" fill="#111"/><rect x="8" width="8" height="10" fill="#fff"/></pattern>
+    </defs>
+    <path d="M0 14Q490 40 980 14" fill="none" stroke="#e9a46b" stroke-width="3"/>
+    <g id="shirtRow"></g>
+  </svg>
+  <div class="board">
+    <h2>Menù del giorno</h2>
+    <div class="date" id="menuDate"></div>
+    <div class="cols" id="menuCols"></div>
+    <p class="note">Il menù cambia ogni giorno. Chiedi al banco per allergeni e piatti del giorno.</p>
+  </div>
+</section>
+
+<section class="band" id="locale">
+  <div class="wrap room">
+    <figure><img src="interno.jpg" alt="L'interno dell'American Bar con maglie e sciarpe appese al soffitto" loading="lazy"></figure>
+    <div>
+      <h2>Un bar da tifosi</h2>
+      <p>Maglie appese al soffitto, sciarpe delle trasferte lungo le pareti e la TV sempre pronta per la partita.</p>
+      <p>Dal primo caffè delle 5:30 al pranzo di mezzogiorno, ti aspettiamo al banco.</p>
+      <a class="btn" href="https://www.instagram.com/americanbarmesiano/" target="_blank" rel="noopener">Guarda le foto su Instagram</a>
+    </div>
+  </div>
+</section>
+
+<section class="band info-band" id="orari">
+  <div class="wrap info">
+    <div class="card">
+      <h2>Orari</h2>
+      <div class="big">5:30 – 15:30</div>
+      <p>Colazione dall'alba, pranzo a mezzogiorno.</p>
+    </div>
+    <div class="card" id="dove">
+      <h2>Dove siamo</h2>
+      <div class="big" style="white-space:normal;font-size:24px">Via G. Genovese 4a</div>
+      <p>Mesiano</p>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Via+G.+Genovese+4a+Mesiano" target="_blank" rel="noopener">Apri in Maps</a>
+    </div>
+    <div class="card">
+      <h2>Instagram</h2>
+      <div class="big" style="font-size:21px;white-space:normal;overflow-wrap:anywhere">@americanbarmesiano</div>
+      <p>Foto dei piatti e novità del giorno.</p>
+      <a class="btn" href="https://www.instagram.com/americanbarmesiano/" target="_blank" rel="noopener">Seguici</a>
+    </div>
+  </div>
+</section>
+
+<svg class="scarf" id="scarf2" viewBox="0 0 1200 76" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+
+<footer class="band"><div class="wrap">
+  <span><img src="logo.jpg" alt="">American Bar · Via G. Genovese 4a, Mesiano</span>
+  <span>Instagram: @americanbarmesiano</span>
+</div></footer>
+
+<script>
+{
+// ===== MENÙ DEL GIORNO: si aggiorna qui =====
+const MENU = {
+  data: "Mercoledì 25 novembre",
+  sezioni: [
+    { titolo: "Antipasti", piatti: [["Antipasti della casa", ""]] },
+    { titolo: "Primi", piatti: [
+      ["Spaghetti al pomodoro", "9 €"],
+      ["Fettuccine ai porcini", "10 €"],
+      ["Penne tonno e fagioli", "10 €"],
+      ["Fileja porcini e salsiccia", "10 €"]
+    ]},
+    { titolo: "Secondi", piatti: [
+      ["Hamburger", "9 €"],
+      ["Cotoletta di pollo", "6 €"],
+      ["Caprese", "8 €"],
+      ["Caprese con crudo", "10 €"]
+    ]},
+    { titolo: "Insalate e contorni", piatti: [
+      ["Insalata verde", "4 €"],
+      ["Insalata mista", "7 €"],
+      ["Patatine fritte", "5 €"]
+    ]}
+  ]
+};
+// ============================================
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+document.getElementById("menuDate").textContent = MENU.data;
+const half = Math.ceil(MENU.sezioni.length / 2);
+const col = list => '<div>' + list.map(s =>
+  '<div class="sec"><h3>' + esc(s.titolo) + '</h3><ul>' +
+  s.piatti.map(([n, p]) => '<li><span class="n">' + esc(n) + '</span>' + (p ? '<span class="dots"></span><span class="p">' + esc(p) + '</span>' : '') + '</li>').join('') +
+  '</ul></div>').join('') + '</div>';
+document.getElementById("menuCols").innerHTML = col(MENU.sezioni.slice(0, half)) + col(MENU.sezioni.slice(half));
+
+// sciarpe da stadio
+const scarf = (id, text) => {
+  let s = '<rect width="1200" height="76" fill="#111"/>';
+  for (let i = 0; i < 60; i++) s += '<rect x="' + (i * 20) + '" y="0" width="10" height="10" fill="#fff"/><rect x="' + (i * 20 + 10) + '" y="66" width="10" height="10" fill="#fff"/>';
+  s += '<rect y="12" width="1200" height="52" fill="#723018"/><rect y="14" width="1200" height="3" fill="#e9a46b"/><rect y="59" width="1200" height="3" fill="#e9a46b"/>';
+  s += '<text x="600" y="49" text-anchor="middle" fill="#fffcdf" font-family="Oswald,Arial Narrow,sans-serif" font-weight="700" font-size="28" letter-spacing="3">' + text + '</text>';
+  document.getElementById(id).innerHTML = s;
+};
+scarf("scarf1", "★ AMERICAN BAR ★ MESIANO ★ AMERICAN BAR ★ MESIANO ★");
+scarf("scarf2", "DAL PRIMO CAFFÈ ALL'ULTIMO FISCHIO ★ VIA G. GENOVESE 4A");
+
+// maglie appese: la "formazione" del bar
+const team = [["CAFFÈ", 1, "url(#str)", "#fff"], ["CORNETTO", 7, "#fff", "#111"], ["CAPPUCCINO", 10, "url(#str)", "#fff"], ["PORTIERE", 1, "#2f6b3a", "#fff"], ["PASTA", 9, "#fff", "#111"], ["PANINO", 11, "url(#str)", "#fff"]];
+document.getElementById("shirtRow").innerHTML = team.map(([n, num, fill, ink], i) => {
+  const x = 82 + i * 163, r = (i % 2 ? 4 : -4);
+  return '<g transform="translate(' + x + ' 24) rotate(' + r + ')"><use href="#tee" fill="' + fill + '" stroke="#3a1a0c" stroke-width="2"/>' +
+    '<rect x="-30" y="34" width="60" height="44" rx="4" fill="' + (fill.startsWith("url") ? "#111" : "transparent") + '" opacity=".85"/>' +
+    '<text y="48" text-anchor="middle" font-family="Oswald,sans-serif" font-weight="700" font-size="10" fill="' + (fill.startsWith("url") ? "#fff" : ink) + '">' + esc(n) + '</text>' +
+    '<text y="76" text-anchor="middle" font-family="Oswald,sans-serif" font-weight="700" font-size="28" fill="' + (fill.startsWith("url") ? "#fff" : ink) + '">' + num + '</text>' +
+    '<circle cx="0" cy="-4" r="3" fill="#e9a46b"/></g>';
+}).join('');
+
+// aperto / chiuso (ora italiana)
+try {
+  const parts = new Intl.DateTimeFormat("it-IT", {timeZone: "Europe/Rome", hour: "2-digit", minute: "2-digit", hour12: false}).formatToParts(new Date());
+  const h = +parts.find(p => p.type === "hour").value, m = +parts.find(p => p.type === "minute").value;
+  const t = h * 60 + m, open = t >= 330 && t < 930;
+  const st = document.getElementById("status");
+  st.classList.toggle("open", open);
+  st.querySelector("span").textContent = open ? "Aperto adesso · fino alle 15:30" : "Ora chiuso · apriamo alle 5:30";
+} catch (e) {}
+}
+</script>
+</body>
+</html>
