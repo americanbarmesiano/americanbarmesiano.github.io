@@ -4,23 +4,44 @@
     {
       "titolo": "Primi",
       "piatti": [
-        { "nome": "Rigatoni agli scampi", "prezzo": "15 €" },
-        { "nome": "Risotto alla milanese", "prezzo": "12 €" },
-        { "nome": "Spaghetti alla carbonara", "prezzo": "10 €" }
+        {
+          "nome": "Rigatoni agli scampi",
+          "prezzo": "15 €"
+        },
+        {
+          "nome": "Risotto alla milanese",
+          "prezzo": "12 €"
+        },
+        {
+          "nome": "Spaghetti alla carbonara",
+          "prezzo": "1 €"
+        }
       ]
     },
     {
       "titolo": "Secondi",
       "piatti": [
-        { "nome": "Filetto di manzo", "prezzo": "15 €" }
+        {
+          "nome": "Filetto di manzo",
+          "prezzo": "15 €"
+        }
       ]
     },
     {
       "titolo": "Insalate e contorni",
       "piatti": [
-        { "nome": "Insalata verde", "prezzo": "4 €" },
-        { "nome": "Insalata mista", "prezzo": "7 €" },
-        { "nome": "Patatine fritte", "prezzo": "5 €" }
+        {
+          "nome": "Insalata verde",
+          "prezzo": "4 €"
+        },
+        {
+          "nome": "Insalata mista",
+          "prezzo": "7 €"
+        },
+        {
+          "nome": "Patatine fritte",
+          "prezzo": "5 €"
+        }
       ]
     }
   ],
