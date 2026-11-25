@@ -1,0 +1,28 @@
+{
+  "data": "Mercoledì 25 novembre",
+  "sezioni": [
+    {
+      "titolo": "Primi",
+      "piatti": [
+        { "nome": "Rigatoni agli scampi", "prezzo": "15 €" },
+        { "nome": "Risotto alla milanese", "prezzo": "12 €" },
+        { "nome": "Spaghetti alla carbonara", "prezzo": "10 €" }
+      ]
+    },
+    {
+      "titolo": "Secondi",
+      "piatti": [
+        { "nome": "Filetto di manzo", "prezzo": "15 €" }
+      ]
+    },
+    {
+      "titolo": "Insalate e contorni",
+      "piatti": [
+        { "nome": "Insalata verde", "prezzo": "4 €" },
+        { "nome": "Insalata mista", "prezzo": "7 €" },
+        { "nome": "Patatine fritte", "prezzo": "5 €" }
+      ]
+    }
+  ],
+  "nota": "Il menù cambia ogni giorno. Chiedi al banco per allergeni e piatti del giorno."
+}

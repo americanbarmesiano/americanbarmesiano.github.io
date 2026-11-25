@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#723018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Menù Bar">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icona-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icona-192.png">
+<title>Gestione menù</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Pagina di gestione del menù: stessi colori, font e "sciarpa" del sito, pensata per il telefono */
+:root{color-scheme:light dark;--bg:light-dark(#fffcdf,#1c120c);--ink:light-dark(#3a1a0c,#fbf3d8);--soft:light-dark(#6e4a36,#d2bfa4);--brown:#723018;--brown2:#55220f;--peach:#e9a46b;--cream:#fffcdf;--panel:light-dark(#fff6d2,#2a1b11);--field:light-dark(#fffdf0,#1c120c);--line:light-dark(#e6d3a6,#4a2f1f);--ok:#2f8f4e;--bad:#b3261e;--wood:#8a5a35}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Work Sans",system-ui,sans-serif;overflow-x:clip;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+nav{position:sticky;top:0;z-index:5;background:var(--brown);color:var(--cream);padding:0 16px;padding-top:env(safe-area-inset-top);border-bottom:4px solid var(--peach)}
+nav .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px;min-height:60px}
+nav .logo{display:flex;align-items:center;gap:10px;font-family:"Alfa Slab One",Georgia,serif;font-size:19px;text-decoration:none;margin-right:auto;line-height:1.1}
+nav .logo img{width:40px;height:40px;border-radius:50%;border:2px solid var(--peach);flex:none}
+nav .logo small{display:block;font-family:"Oswald",sans-serif;font-weight:500;font-size:13px;letter-spacing:1px;color:var(--peach)}
+nav .lnk{background:none;border:0;text-decoration:none;font-weight:600;font-size:14px;padding:10px;border-radius:6px;min-height:44px;display:inline-flex;align-items:center;cursor:pointer;color:var(--cream)}
+nav .lnk:hover,nav .lnk:focus-visible{background:var(--brown2);outline:none;color:var(--peach)}
+.scarf{display:block;width:100%;height:38px}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:30px;line-height:1.1;margin:8px 0 4px;color:var(--brown)}
+:root[data-theme=dark] h1{color:var(--peach)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) h1{color:var(--peach)}}
+.lead{color:var(--soft);margin:0 0 16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 5px 0 var(--brown);margin:0 0 20px}
+.card h2{font-family:"Oswald",sans-serif;font-weight:700;font-size:19px;margin:0 0 10px;display:inline-block;padding:3px 10px;background:var(--brown);color:var(--cream);border-radius:4px}
+label{display:block;font-weight:600;font-size:14px;margin:0 0 4px;color:var(--soft)}
+input[type=text],input[type=password],textarea{width:100%;min-height:46px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--field);font-size:16px}
+textarea{min-height:70px;resize:vertical}
+input:focus,textarea:focus{outline:3px solid var(--peach);outline-offset:0;border-color:var(--brown)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:10px 16px;border-radius:8px;border:0;background:var(--brown);color:var(--cream);text-decoration:none;font-weight:600;cursor:pointer}
+.btn:hover,.btn:focus-visible{background:var(--brown2);outline:3px solid var(--peach)}
+.btn.alt{background:var(--peach);color:#3a1a0c}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px dashed var(--line)}
+.btn.ghost:hover,.btn.ghost:focus-visible{background:var(--panel);border-color:var(--brown)}
+.btn:disabled{opacity:.45;cursor:default;outline:none}
+.btn.wide{width:100%}
+.ico{width:44px;height:44px;flex:none;display:inline-grid;place-items:center;border-radius:8px;border:1.5px solid var(--line);background:var(--field);cursor:pointer;font-size:18px;line-height:1;padding:0}
+.ico:hover,.ico:focus-visible{border-color:var(--brown);outline:2px solid var(--peach)}
+.ico.del{color:var(--bad)}
+.ico.cal{position:relative;overflow:hidden;width:46px;height:46px;margin:0}
+.ico.cal input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0;font-size:16px}
+.hint{font-size:13px;color:var(--soft);margin:8px 0 0}
+.hint.new{color:var(--ok);font-weight:600}
+.ico:disabled{opacity:.3;cursor:default;outline:none}
+.row{display:flex;gap:8px;align-items:center}
+.tabs{display:flex;gap:6px;margin:0 0 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px}
+.tabs button{flex:1;min-height:44px;border:0;border-radius:7px;background:transparent;font-weight:600;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--brown);color:var(--cream)}
+.sec-card .head{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.sec-card .head input{font-family:"Oswald",sans-serif;font-weight:700;font-size:18px;background:var(--brown);color:var(--cream);border-color:var(--brown)}
+.sec-card .head input::placeholder{color:#fffcdf99}
+.dish{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 8px;padding:10px 0;border-top:1px dashed var(--line)}
+.dish .name{grid-column:1/-1}
+.dish .price{max-width:130px}
+.dish .tools{display:flex;gap:6px}
+.dish:first-of-type{border-top:0;padding-top:0}
+.empty{color:var(--soft);font-style:italic;margin:4px 0 10px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--brown);color:var(--cream);border-top:4px solid var(--peach);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.bar .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.bar .msg{flex:1;font-size:14px;line-height:1.3}
+.bar .msg b{display:block;font-size:15px}
+.bar .btn{background:var(--peach);color:#3a1a0c;min-width:120px}
+.bar .btn:hover,.bar .btn:focus-visible{background:#f3b884;outline:3px solid var(--cream)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#b9ab95;margin-right:6px;vertical-align:1px}
+.dot.ok{background:#3ccf73}.dot.wait{background:var(--peach);animation:blink 1s infinite}.dot.bad{background:#ff6b5e}
+@keyframes blink{50%{opacity:.3}}
+.preview{border:10px solid var(--wood);border-radius:8px;overflow:hidden;background:var(--brown);box-shadow:0 10px 30px #0004}
+.preview iframe{display:block;width:100%;height:calc(100vh - 290px);min-height:420px;border:0;background:var(--bg)}
+.steps{margin:0;padding-left:22px}
+.steps li{margin:0 0 8px}
+.steps code{background:var(--field);border:1px solid var(--line);padding:1px 6px;border-radius:4px;font-size:14px;overflow-wrap:anywhere}
+.err{color:var(--bad);font-weight:600;margin:10px 0 0}
+.toast{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:9;background:#111;color:#fff;padding:10px 16px;border-radius:8px;font-weight:600;box-shadow:0 8px 24px #0006;max-width:calc(100% - 32px)}
+.loading{text-align:center;color:var(--soft);padding:40px 0}
+@media(prefers-reduced-motion:reduce){.dot.wait{animation:none}}
+</style>
+</head>
+<body>
+<nav><div class="in">
+  <div class="logo"><img src="icona-180.png" alt=""><span>American Bar<small>GESTIONE MENÙ</small></span></div>
+  <a class="lnk" href="../" target="_blank" rel="noopener">Sito ↗</a>
+  <button class="lnk" id="logout" hidden>Esci</button>
+</div></nav>
+<svg class="scarf" id="scarf" viewBox="0 0 1200 38" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+
+<main>
+  <!-- ACCESSO -->
+  <section id="login" hidden>
+    <h1>Ciao! Accedi</h1>
+    <p class="lead">Questa pagina modifica il menù del sito. Serve una chiave di GitHub da inserire una volta sola: poi il telefono se la ricorda.</p>
+    <div class="card" id="iosTip" hidden style="border-color:var(--peach);box-shadow:0 5px 0 var(--peach)">
+      <h2>📱 Prima: aggiungi l'icona</h2>
+      <ol class="steps">
+        <li>Premi il tasto <b>Condividi</b> di Safari (il quadrato con la freccia ↑).</li>
+        <li>Scorri e scegli <b>Aggiungi alla schermata Home</b>, poi <b>Aggiungi</b>.</li>
+        <li>Apri l'icona <b>Menù Bar</b> dalla schermata Home e incolla la chiave <b>lì</b>.</li>
+      </ol>
+      <p class="hint" style="margin:0">Su iPhone l'icona ha una memoria separata da Safari: la chiave messa nell'icona viene ricordata e non verrà più chiesta.</p>
+    </div>
+    <div class="card">
+      <h2>Chiave di accesso</h2>
+      <form id="loginForm">
+        <label for="token">Incolla qui la chiave (inizia con <b>github_pat_</b>)</label>
+        <input type="password" id="token" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" required>
+        <p class="err" id="loginErr" hidden></p>
+        <button class="btn wide" style="margin-top:12px" id="loginBtn">Entra</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Come creare la chiave</h2>
+      <ol class="steps">
+        <li>Accedi a GitHub con l'account <b>americanbarmesiano</b> e apri <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">questa pagina</a>.</li>
+        <li><b>Token name</b>: <code>Menù dal telefono</code>. <b>Expiration</b>: la durata più lunga disponibile.</li>
+        <li><b>Repository access</b>: <i>Only select repositories</i> → <code>americanbarmesiano.github.io</code>.</li>
+        <li><b>Permissions</b> → <b>Repository permissions</b>: <b>Contents</b> = <i>Read and write</i>, <b>Pages</b> = <i>Read and write</i>.</li>
+        <li>Premi <b>Generate token</b>, copia la chiave e incollala qui sopra.</li>
+      </ol>
+      <p class="lead" style="margin:8px 0 0;font-size:14px">La chiave resta solo su questo telefono. Non condividerla: chi la ha può cambiare il sito.</p>
+    </div>
+  </section>
+
+  <!-- EDITOR -->
+  <section id="app" hidden>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabEdit" aria-selected="true" aria-controls="paneEdit">✏️ Modifica</button>
+      <button role="tab" id="tabPrev" aria-selected="false" aria-controls="panePrev">👀 Anteprima</button>
+    </div>
+
+    <div id="paneEdit" role="tabpanel">
+      <div class="loading" id="loading">Carico il menù…</div>
+      <div id="editor" hidden>
+        <div class="card">
+          <h2>Giorno</h2>
+          <label for="data">Data mostrata sopra il menù</label>
+          <div class="row">
+            <input type="text" id="data" placeholder="Es. Mercoledì 25 novembre">
+            <label class="ico cal" title="Scegli un giorno dal calendario"><span aria-hidden="true">📅</span><input type="date" id="dataPick" aria-label="Scegli un giorno dal calendario"></label>
+            <button class="btn alt" type="button" id="oggi">Oggi</button>
+          </div>
+          <p class="hint" id="dataHint">Presa in automatico dal telefono. Puoi scriverla a mano o sceglierla dal calendario 📅.</p>
+        </div>
+        <div id="sezioni"></div>
+        <button class="btn ghost wide" type="button" id="addSec">＋ Aggiungi sezione</button>
+        <div class="card" style="margin-top:20px">
+          <h2>Nota in fondo</h2>
+          <label for="nota">Testo piccolo sotto il menù</label>
+          <textarea id="nota" rows="2"></textarea>
+        </div>
+        <button class="btn ghost wide" type="button" id="reload">↺ Annulla le modifiche non pubblicate</button>
+      </div>
+    </div>
+
+    <div id="panePrev" role="tabpanel" hidden>
+      <p class="lead">Così vedranno il menù i clienti dopo la pubblicazione.</p>
+      <div class="preview"><iframe id="prevFrame" title="Anteprima del sito" src="about:blank"></iframe></div>
+    </div>
+  </section>
+</main>
+
+<div class="bar" id="bar" hidden><div class="in">
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <button class="btn" id="publish" disabled>Pubblica</button>
+</div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+{
+const REPO = "americanbarmesiano/americanbarmesiano.github.io";
+const BRANCH = "main";
+const FILE = "menu.json";
+const API = "https://api.github.com/repos/" + REPO;
+const KEY = "abm-menu-token";
+const $ = id => document.getElementById(id);
+
+// ---------- sciarpa ----------
+{
+  let s = '<rect width="1200" height="38" fill="#111"/>';
+  for (let i = 0; i < 60; i++) s += '<rect x="' + (i * 20) + '" width="10" height="6" fill="#fff"/><rect x="' + (i * 20 + 10) + '" y="32" width="10" height="6" fill="#fff"/>';
+  s += '<rect y="7" width="1200" height="24" fill="#723018"/><text x="600" y="25" text-anchor="middle" fill="#fffcdf" font-family="Oswald,Arial Narrow,sans-serif" font-weight="700" font-size="15" letter-spacing="3">★ IL MENÙ DEL GIORNO ★ AMERICAN BAR ★ MESIANO ★ IL MENÙ DEL GIORNO ★</text>';
+  $("scarf").innerHTML = s;
+}
+
+// ---------- utilità ----------
+const store = {
+  get() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } },
+  set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} },
+  clear() { try { localStorage.removeItem(KEY); } catch (e) {} }
+};
+let token = store.get();
+const toB64 = str => { const b = new TextEncoder().encode(str); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(s); };
+const fromB64 = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g, "")), c => c.charCodeAt(0)));
+const gh = async (path, opts = {}) => {
+  const r = await fetch(API + path, { cache: "no-store", ...opts, headers: { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token, "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? { "Content-Type": "application/json" } : {}) } });
+  let body = null; try { body = await r.json(); } catch (e) {}
+  if (!r.ok) { const e = new Error((body && body.message) || ("Errore " + r.status)); e.status = r.status; throw e; }
+  return body;
+};
+let toastT;
+const toast = t => { const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2600); };
+const clone = o => JSON.parse(JSON.stringify(o));
+// data in italiano presa dall'orologio del telefono: "Mercoledì 25 novembre"
+const giorno = d => { const s = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long" }).format(d); return s.charAt(0).toUpperCase() + s.slice(1); };
+const oggi = () => giorno(new Date());
+// "12" o "12,5" → "12 €" / "12,50 €"
+const fixPrice = p => { p = (p || "").trim(); const m = p.match(/^(\d+)(?:[.,](\d{1,2}))?\s*(€|euro)?$/i); if (!m) return p; return m[1] + (m[2] ? "," + m[2].padEnd(2, "0") : "") + " €"; };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+// ---------- stato ----------
+let menu = null;      // menù in modifica
+let saved = "";       // ultima versione su GitHub (JSON normalizzato)
+let sha = null;       // versione del file su GitHub
+let busy = false;
+const norm = m => JSON.stringify({ data: (m.data || "").trim(), sezioni: (m.sezioni || []).map(s => ({ titolo: (s.titolo || "").trim(), piatti: (s.piatti || []).map(p => ({ nome: (p.nome || "").trim(), prezzo: (p.prezzo || "").trim() })).filter(p => p.nome) })).filter(s => s.titolo || s.piatti.length), nota: (m.nota || "").trim() });
+const dirty = () => menu && norm(menu) !== saved;
+
+const setMsg = (state, title, sub) => { $("msg").innerHTML = '<b><span class="dot ' + (state || "") + '"></span>' + esc(title) + '</b>' + (sub ? esc(sub) : ""); };
+const refreshBar = () => {
+  if (busy) return;
+  const d = dirty();
+  $("publish").disabled = !d;
+  if (d) setMsg("wait", "Modifiche non pubblicate", "Premi Pubblica per metterle sul sito.");
+  else if (!publishing) setMsg("ok", "Tutto pubblicato", "Il sito mostra questo menù.");
+};
+
+// ---------- editor ----------
+const secHTML = (s, si, n) =>
+  '<div class="card sec-card" data-s="' + si + '">' +
+    '<div class="head">' +
+      '<input type="text" data-f="titolo" value="' + esc(s.titolo) + '" placeholder="Nome sezione (es. Primi)" aria-label="Nome sezione">' +
+      '<button class="ico" data-a="secUp" aria-label="Sposta sezione su"' + (si === 0 ? " disabled" : "") + '>↑</button>' +
+      '<button class="ico" data-a="secDown" aria-label="Sposta sezione giù"' + (si === n - 1 ? " disabled" : "") + '>↓</button>' +
+      '<button class="ico del" data-a="secDel" aria-label="Elimina sezione">🗑</button>' +
+    '</div>' +
+    (s.piatti.length ? "" : '<p class="empty">Nessun piatto in questa sezione.</p>') +
+    s.piatti.map((p, pi) =>
+      '<div class="dish" data-p="' + pi + '">' +
+        '<input type="text" class="name" data-f="nome" value="' + esc(p.nome) + '" placeholder="Nome del piatto" aria-label="Nome del piatto">' +
+        '<input type="text" class="price" data-f="prezzo" value="' + esc(p.prezzo) + '" placeholder="Prezzo" inputmode="decimal" aria-label="Prezzo">' +
+        '<div class="tools">' +
+          '<button class="ico" data-a="up" aria-label="Sposta su"' + (pi === 0 ? " disabled" : "") + '>↑</button>' +
+          '<button class="ico" data-a="down" aria-label="Sposta giù"' + (pi === s.piatti.length - 1 ? " disabled" : "") + '>↓</button>' +
+          '<button class="ico del" data-a="del" aria-label="Elimina piatto">✕</button>' +
+        '</div>' +
+      '</div>').join("") +
+    '<button class="btn ghost wide" data-a="add" style="margin-top:10px">＋ Aggiungi piatto</button>' +
+  '</div>';
+
+const render = focus => {
+  $("data").value = menu.data || "";
+  $("nota").value = menu.nota || "";
+  $("sezioni").innerHTML = menu.sezioni.map((s, i) => secHTML(s, i, menu.sezioni.length)).join("");
+  if (focus) { const el = document.querySelector(focus); if (el) { el.focus(); el.scrollIntoView({ block: "center", behavior: "smooth" }); } }
+  changed();
+};
+const changed = () => { refreshBar(); schedulePreview(); };
+
+const swap = (arr, i, j) => { [arr[i], arr[j]] = [arr[j], arr[i]]; };
+$("sezioni").addEventListener("input", e => {
+  const f = e.target.dataset.f; if (!f) return;
+  const sc = e.target.closest("[data-s]"), s = menu.sezioni[+sc.dataset.s];
+  const dc = e.target.closest("[data-p]");
+  if (dc) s.piatti[+dc.dataset.p][f] = e.target.value; else s[f] = e.target.value;
+  changed();
+});
+$("sezioni").addEventListener("focusout", e => {
+  if (e.target.dataset.f !== "prezzo") return;
+  const v = fixPrice(e.target.value);
+  if (v !== e.target.value) { e.target.value = v; e.target.dispatchEvent(new Event("input", { bubbles: true })); }
+});
+$("sezioni").addEventListener("click", e => {
+  const b = e.target.closest("[data-a]"); if (!b) return;
+  const si = +b.closest("[data-s]").dataset.s, s = menu.sezioni[si];
+  const dc = b.closest("[data-p]"), pi = dc ? +dc.dataset.p : -1;
+  switch (b.dataset.a) {
+    case "add": s.piatti.push({ nome: "", prezzo: "" }); return render('[data-s="' + si + '"] [data-p="' + (s.piatti.length - 1) + '"] .name');
+    case "del": {
+      const p = s.piatti[pi];
+      if (p.nome && !confirm('Eliminare "' + p.nome + '"?')) return;
+      s.piatti.splice(pi, 1); return render();
+    }
+    case "up": case "down": {
+      // il pulsante resta sotto il dito: si può premere più volte di fila
+      const to = b.dataset.a === "up" ? pi - 1 : pi + 1;
+      swap(s.piatti, pi, to);
+      const row = '[data-s="' + si + '"] [data-p="' + to + '"] ';
+      render(row + '[data-a="' + b.dataset.a + '"]');
+      const same = document.querySelector(row + '[data-a="' + b.dataset.a + '"]');
+      if (same && same.disabled) document.querySelector(row + '[data-a="' + (b.dataset.a === "up" ? "down" : "up") + '"]').focus();
+      return;
+    }
+    case "secDel":
+      if ((s.titolo || s.piatti.length) && !confirm('Eliminare la sezione "' + (s.titolo || "senza nome") + '" con ' + s.piatti.length + ' piatti?')) return;
+      menu.sezioni.splice(si, 1); return render();
+    case "secUp": swap(menu.sezioni, si, si - 1); return render('[data-s="' + (si - 1) + '"] [data-f="titolo"]');
+    case "secDown": swap(menu.sezioni, si, si + 1); return render('[data-s="' + (si + 1) + '"] [data-f="titolo"]');
+  }
+});
+$("addSec").onclick = () => { menu.sezioni.push({ titolo: "", piatti: [{ nome: "", prezzo: "" }] }); render('[data-s="' + (menu.sezioni.length - 1) + '"] [data-f="titolo"]'); };
+$("data").oninput = e => { menu.data = e.target.value; hintBase(); changed(); };
+$("nota").oninput = e => { menu.nota = e.target.value; changed(); };
+const hintBase = () => { $("dataHint").className = "hint"; $("dataHint").textContent = "Presa in automatico dal telefono. Puoi scriverla a mano o sceglierla dal calendario 📅."; };
+const setData = (v, msg) => { menu.data = v; $("data").value = v; hintBase(); changed(); if (msg) toast(msg); };
+$("oggi").onclick = () => setData(oggi(), "Data impostata a oggi");
+$("dataPick").onchange = e => { const [y, m, d] = (e.target.value || "").split("-").map(Number); if (y) setData(giorno(new Date(y, m - 1, d)), "Data cambiata"); };
+$("reload").onclick = () => { if (!dirty() || confirm("Buttare via le modifiche non pubblicate?")) load(); };
+
+// ---------- anteprima ----------
+const frame = $("prevFrame");
+let prevT, frameReady = false;
+const pushPreview = () => { if (!frameReady || !menu) return; try { frame.contentWindow.renderMenu(JSON.parse(norm(menu))); } catch (e) {} };
+const schedulePreview = () => { clearTimeout(prevT); prevT = setTimeout(pushPreview, 250); };
+frame.addEventListener("load", () => {
+  frameReady = frame.src.indexOf("anteprima") > -1;
+  pushPreview();
+  // porta l'anteprima sul menù senza far scorrere questa pagina
+  try { const w = frame.contentWindow, el = w.document.getElementById("menu"); w.document.documentElement.style.scrollBehavior = "auto"; w.scrollTo(0, el.offsetTop - 64); } catch (e) {}
+});
+const tab = which => {
+  const prev = which === "prev";
+  $("tabEdit").setAttribute("aria-selected", !prev); $("tabPrev").setAttribute("aria-selected", prev);
+  $("paneEdit").hidden = prev; $("panePrev").hidden = !prev;
+  if (prev && !frameReady && frame.src.indexOf("anteprima") < 0) frame.src = "../?anteprima";
+  if (prev) pushPreview();
+  window.scrollTo(0, 0);
+};
+$("tabEdit").onclick = () => tab("edit");
+$("tabPrev").onclick = () => tab("prev");
+
+// ---------- GitHub ----------
+const load = async () => {
+  $("editor").hidden = true; $("loading").hidden = false; $("loading").textContent = "Carico il menù…";
+  try {
+    const f = await gh("/contents/" + FILE + "?ref=" + BRANCH + "&t=" + Date.now());
+    sha = f.sha;
+    const m = JSON.parse(fromB64(f.content));
+    menu = { data: m.data || "", sezioni: (m.sezioni || []).map(s => ({ titolo: s.titolo || "", piatti: (s.piatti || []).map(p => ({ nome: p.nome || "", prezzo: p.prezzo || "" })) })), nota: m.nota || "" };
+    saved = norm(menu);
+    // la data si aggiorna da sola al giorno del telefono (resta modificabile a mano)
+    const prima = menu.data, auto = oggi();
+    if (prima !== auto) menu.data = auto;
+    $("dataHint").className = "hint" + (prima !== auto ? " new" : "");
+    $("dataHint").textContent = prima !== auto
+      ? "Data aggiornata a oggi in automatico (prima era \"" + (prima || "vuota") + "\"). Premi Pubblica per salvarla."
+      : "Presa in automatico dal telefono. Puoi scriverla a mano o sceglierla dal calendario 📅.";
+    $("loading").hidden = true; $("editor").hidden = false;
+    render();
+  } catch (e) {
+    if (e.status === 401) return logout("La chiave non è più valida o è scaduta: creane una nuova.");
+    $("loading").innerHTML = "Non riesco a caricare il menù (" + esc(e.message) + ").<br><button class='btn' style='margin-top:12px' id='retry'>Riprova</button>";
+    $("retry").onclick = load;
+  }
+};
+
+let publishing = false, watchT;
+$("publish").onclick = async () => {
+  if (!dirty() || busy) return;
+  const clean = JSON.parse(norm(menu));
+  if (!clean.sezioni.length && !confirm("Il menù è vuoto: pubblicarlo lo stesso?")) return;
+  busy = true; $("publish").disabled = true;
+  setMsg("wait", "Salvo su GitHub…", "");
+  const text = JSON.stringify(clean, null, 2) + "\n";
+  try {
+    const r = await gh("/contents/" + FILE, { method: "PUT", body: JSON.stringify({
+      message: "Menù " + (clean.data || "aggiornato") + " (dal telefono)",
+      content: toB64(text), sha, branch: BRANCH
+    }) });
+    sha = r.content.sha;
+    saved = norm(clean);
+    busy = false;
+    menu = clean;   // toglie dall'editor sezioni e piatti vuoti scartati
+    render();
+    watchPublish(saved);
+  } catch (e) {
+    busy = false;
+    if (e.status === 409 || e.status === 422) { setMsg("bad", "Il menù è cambiato altrove", "Ricarico l'ultima versione: rifai le modifiche."); toast("Menù cambiato da un'altra parte"); setTimeout(load, 1500); return; }
+    if (e.status === 401) return logout("La chiave non è più valida: creane una nuova.");
+    if (e.status === 403 || e.status === 404) { setMsg("bad", "Permesso negato", "La chiave deve avere Contents = Read and write."); $("publish").disabled = false; return; }
+    setMsg("bad", "Non salvato", e.message + " — controlla la connessione e riprova."); $("publish").disabled = false;
+  }
+};
+
+// controlla quando il sito mostra davvero il nuovo menù
+const watchPublish = want => {
+  publishing = true; clearTimeout(watchT);
+  const start = Date.now();
+  const tick = async () => {
+    if (norm(menu) !== want) { publishing = false; return refreshBar(); }  // nel frattempo altre modifiche
+    const secs = Math.round((Date.now() - start) / 1000);
+    try {
+      const live = await (await fetch("../" + FILE + "?v=" + Date.now(), { cache: "no-store" })).json();
+      if (norm(live) === want) { publishing = false; setMsg("ok", "Online! ✓", "Il sito mostra il nuovo menù."); toast("Menù pubblicato sul sito ✓"); return; }
+    } catch (e) {}
+    if (secs < 240) { setMsg("wait", "Salvato. Sto aggiornando il sito…", "Di solito ci vuole circa un minuto (" + secs + " s)."); watchT = setTimeout(tick, 6000); return; }
+    publishing = false;
+    $("msg").innerHTML = '<b><span class="dot bad"></span>GitHub è in ritardo</b>Il menù è salvato, ma il sito non si è ancora aggiornato. <button class="btn alt" id="rebuild" style="min-height:36px;padding:4px 10px;margin-top:6px;font-size:14px">Riprova a pubblicare</button>';
+    $("rebuild").onclick = async () => {
+      try { await gh("/pages/builds", { method: "POST" }); toast("Pubblicazione richiesta"); watchPublish(want); }
+      catch (e) { setMsg("bad", "Non riesco a ripubblicare", e.status === 403 ? "La chiave deve avere anche Pages = Read and write." : e.message); }
+    };
+  };
+  tick();
+};
+
+// ---------- accesso ----------
+const show = logged => { $("login").hidden = logged; $("app").hidden = !logged; $("bar").hidden = !logged; $("logout").hidden = !logged; };
+const logout = msg => { token = ""; store.clear(); show(false); clearTimeout(watchT); if (msg) { $("loginErr").textContent = msg; $("loginErr").hidden = false; } };
+$("logout").onclick = () => { if ((!dirty() || confirm("Ci sono modifiche non pubblicate. Uscire lo stesso?")) && confirm("Uscire? Dovrai incollare di nuovo la chiave.")) logout(); };
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
+  const t = $("token").value.trim(); if (!t) return;
+  $("loginBtn").disabled = true; $("loginBtn").textContent = "Controllo…"; $("loginErr").hidden = true;
+  token = t;
+  try {
+    await gh("/contents/" + FILE + "?ref=" + BRANCH);
+    store.set(t); $("token").value = ""; show(true); load();
+  } catch (err) {
+    token = "";
+    $("loginErr").textContent = err.status === 401 ? "Chiave non valida: controlla di averla copiata tutta." : err.status === 404 || err.status === 403 ? "La chiave non può vedere il repository: in Repository access scegli americanbarmesiano.github.io." : "Errore: " + err.message;
+    $("loginErr").hidden = false;
+  }
+  $("loginBtn").disabled = false; $("loginBtn").textContent = "Entra";
+};
+
+window.addEventListener("beforeunload", e => { if (dirty()) { e.preventDefault(); e.returnValue = ""; } });
+
+// iPhone/iPad in Safari (non dall'icona): suggerisci di aggiungere l'icona prima di mettere la chiave
+const standalone = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
+const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+$("iosTip").hidden = !(ios && !standalone);
+// chiedi al browser di non cancellare mai i dati salvati (la chiave)
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+
+if (token) { show(true); load(); } else show(false);
+}
+</script>
+</body>
+</html>

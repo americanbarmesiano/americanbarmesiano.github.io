@@ -111,7 +111,7 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
     <h2>Menù del giorno</h2>
     <div class="date" id="menuDate"></div>
     <div class="cols" id="menuCols"></div>
-    <p class="note">Il menù cambia ogni giorno. Chiedi al banco per allergeni e piatti del giorno.</p>
+    <p class="note" id="menuNote">Il menù cambia ogni giorno. Chiedi al banco per allergeni e piatti del giorno.</p>
   </div>
 </section>
 
@@ -158,35 +158,30 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
 
 <script>
 {
-// ===== MENÙ DEL GIORNO: si aggiorna qui =====
-const MENU = {
-  data: "Mercoledì 25 novembre",
-  sezioni: [
-    { titolo: "Primi", piatti: [
-      ["Rigatoni agli scampi", "15 €"],
-      ["Risotto alla milanese", "12 €"],
-      ["Spaghetti alla carbonara", "10 €"]
-    ]},
-    { titolo: "Secondi", piatti: [
-      ["Filetto di manzo", "15 €"]
-    ]},
-    { titolo: "Insalate e contorni", piatti: [
-      ["Insalata verde", "4 €"],
-      ["Insalata mista", "7 €"],
-      ["Patatine fritte", "5 €"]
-    ]}
-  ]
+// ===== MENÙ DEL GIORNO =====
+// Il menù sta in menu.json e si modifica dal telefono su /gestione/
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const renderMenu = menu => {
+  const sezioni = (menu.sezioni || []).filter(s => s.titolo || (s.piatti || []).length);
+  document.getElementById("menuDate").textContent = menu.data || "";
+  if (menu.nota) document.getElementById("menuNote").textContent = menu.nota;
+  const half = Math.ceil(sezioni.length / 2);
+  const col = list => '<div>' + list.map(s =>
+    '<div class="sec"><h3>' + esc(s.titolo) + '</h3><ul>' +
+    (s.piatti || []).filter(p => p.nome).map(p => '<li><span class="n">' + esc(p.nome) + '</span>' + (p.prezzo ? '<span class="dots"></span><span class="p">' + esc(p.prezzo) + '</span>' : '') + '</li>').join('') +
+    '</ul></div>').join('') + '</div>';
+  document.getElementById("menuCols").innerHTML = sezioni.length
+    ? col(sezioni.slice(0, half)) + col(sezioni.slice(half))
+    : '<p class="note" style="grid-column:1/-1">Oggi il menù è al banco: chiedi a noi!</p>';
 };
-// ============================================
-
-const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-document.getElementById("menuDate").textContent = MENU.data;
-const half = Math.ceil(MENU.sezioni.length / 2);
-const col = list => '<div>' + list.map(s =>
-  '<div class="sec"><h3>' + esc(s.titolo) + '</h3><ul>' +
-  s.piatti.map(([n, p]) => '<li><span class="n">' + esc(n) + '</span>' + (p ? '<span class="dots"></span><span class="p">' + esc(p) + '</span>' : '') + '</li>').join('') +
-  '</ul></div>').join('') + '</div>';
-document.getElementById("menuCols").innerHTML = col(MENU.sezioni.slice(0, half)) + col(MENU.sezioni.slice(half));
+window.renderMenu = renderMenu;
+// in anteprima (pagina di gestione) il menù arriva dalla pagina che modifica
+if (!/[?&]anteprima/.test(location.search)) {
+  fetch("menu.json?v=" + Date.now(), {cache: "no-store"})
+    .then(r => { if (!r.ok) throw r; return r.json(); })
+    .then(renderMenu)
+    .catch(() => { document.getElementById("menuCols").innerHTML = '<p class="note" style="grid-column:1/-1">Menù non disponibile in questo momento: chiedi al banco!</p>'; });
+}
 
 // sciarpe da stadio
 const scarf = (id, text) => {
