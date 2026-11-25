@@ -2,6 +2,19 @@
   "data": "Mercoledì 25 novembre",
   "sezioni": [
     {
+      "titolo": "Antipasti",
+      "piatti": [
+        {
+          "nome": "Tagliere salumi e formaggi",
+          "prezzo": "8 €"
+        },
+        {
+          "nome": "Caprese",
+          "prezzo": "7 €"
+        }
+      ]
+    },
+    {
       "titolo": "Primi",
       "piatti": [
         {
@@ -14,7 +27,7 @@
         },
         {
           "nome": "Spaghetti alla carbonara",
-          "prezzo": "1 €"
+          "prezzo": "10 €"
         }
       ]
     },
@@ -22,7 +35,7 @@
       "titolo": "Secondi",
       "piatti": [
         {
-          "nome": "Filetto di Paolo",
+          "nome": "Filetto di manzo",
           "prezzo": "15 €"
         }
       ]
