@@ -5,40 +5,22 @@
       "titolo": "Antipasti",
       "piatti": [
         {
-          "nome": "Tagliere salumi e formaggi",
-          "prezzo": "8 €"
-        },
-        {
           "nome": "Caprese con crudo",
           "prezzo": "7 €"
+        },
+        {
+          "nome": "Tagliere salumi e formaggi",
+          "prezzo": "8 €"
         }
       ]
     },
     {
       "titolo": "Primi",
-      "piatti": [
-        {
-          "nome": "Rigatoni agli scampi",
-          "prezzo": "15 €"
-        },
-        {
-          "nome": "Risotto alla milanese",
-          "prezzo": "12 €"
-        },
-        {
-          "nome": "Spaghetti alla carbonara",
-          "prezzo": "10 €"
-        }
-      ]
+      "piatti": []
     },
     {
       "titolo": "Secondi",
-      "piatti": [
-        {
-          "nome": "Filetto di manzo",
-          "prezzo": "15 €"
-        }
-      ]
+      "piatti": []
     },
     {
       "titolo": "Insalate e contorni",
@@ -54,6 +36,44 @@
         {
           "nome": "Patatine fritte",
           "prezzo": "5 €"
+        }
+      ]
+    },
+    {
+      "titolo": "Bevande",
+      "piatti": [
+        {
+          "nome": "Acqua 0.5l",
+          "prezzo": "0,50 €"
+        },
+        {
+          "nome": "Coca-Cola/Fanta",
+          "prezzo": "2,50 €"
+        },
+        {
+          "nome": "Dreher",
+          "prezzo": "1,50 €"
+        },
+        {
+          "nome": "Heineken",
+          "prezzo": "2,50 €"
+        }
+      ]
+    },
+    {
+      "titolo": "Caffè e amari",
+      "piatti": [
+        {
+          "nome": "Caffè",
+          "prezzo": "1 €"
+        },
+        {
+          "nome": "Amaro",
+          "prezzo": "2,50 €"
+        },
+        {
+          "nome": "Grappa",
+          "prezzo": "2,50 €"
         }
       ]
     }
