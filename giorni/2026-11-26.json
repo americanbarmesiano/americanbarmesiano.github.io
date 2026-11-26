@@ -1,17 +1,7 @@
 {
  "giorno": "2026-11-26",
- "rev": 11,
+ "rev": 12,
  "righe": [
-  {
-   "id": "mwy2btuak849z",
-   "t": 5,
-   "n": "Insalata mista",
-   "p": 700,
-   "q": 1,
-   "nota": "",
-   "ora": 1795728405971,
-   "da": "cameriere"
-  },
   {
    "id": "mwy2btuaed39y",
    "t": 5,
