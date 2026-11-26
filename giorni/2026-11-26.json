@@ -1,6 +1,6 @@
 {
  "giorno": "2026-11-26",
- "rev": 1,
+ "rev": 2,
  "righe": [
   {
    "id": "mwy23vdsqj9st",
@@ -17,7 +17,7 @@
    "t": 1,
    "n": "Insalata verde",
    "p": 400,
-   "q": 2,
+   "q": 1,
    "nota": "",
    "ora": 1795728034721,
    "da": "cameriere"
