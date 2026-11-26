@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#723018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ordini Bar">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../gestione/icona-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../gestione/icona-192.png">
+<title>Ordini ai tavoli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: il bar in servizio, rapido e chiaro
+   IDEA: la sala vista dall'alto, sei tavoli di legno; la comanda come foglietto
+   PICTURE: la griglia dei 6 tavoli, piena quando c'è da incassare
+   COLOUR/TYPE: marrone, crema e pesca del sito; Alfa Slab One + Oswald + Work Sans
+   LAYOUT: telefono prima di tutto; alla cassa la griglia si allarga */
+:root{color-scheme:light dark;--bg:light-dark(#fffcdf,#1c120c);--ink:light-dark(#3a1a0c,#fbf3d8);--soft:light-dark(#6e4a36,#d2bfa4);--brown:#723018;--brown2:#55220f;--peach:#e9a46b;--cream:#fffcdf;--panel:light-dark(#fff6d2,#2a1b11);--field:light-dark(#fffdf0,#1c120c);--line:light-dark(#e6d3a6,#4a2f1f);--ok:#2f8f4e;--bad:#b3261e;--wood:#8a5a35}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Work Sans",system-ui,sans-serif;overflow-x:clip;padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+nav{position:sticky;top:0;z-index:5;background:var(--brown);color:var(--cream);padding:0 12px;padding-top:env(safe-area-inset-top);border-bottom:4px solid var(--peach)}
+nav .in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;min-height:60px;flex-wrap:wrap}
+nav .logo{display:flex;align-items:center;gap:10px;font-family:"Alfa Slab One",Georgia,serif;font-size:18px;line-height:1.1;margin-right:auto}
+nav .logo img{width:38px;height:38px;border-radius:50%;border:2px solid var(--peach);flex:none}
+nav .logo small{display:block;font-family:Oswald,sans-serif;font-weight:500;font-size:12px;letter-spacing:1px;color:var(--peach)}
+.mode{display:flex;background:var(--brown2);border-radius:9px;padding:3px}
+.mode button{border:0;background:none;color:var(--cream);font-weight:600;font-size:14px;min-height:40px;padding:0 12px;border-radius:7px;cursor:pointer}
+.mode button[aria-pressed=true]{background:var(--peach);color:#3a1a0c}
+.sync{width:100%;max-width:1100px;margin:0 auto;font-size:13px;color:#f4dcc0;padding:0 0 6px;display:flex;gap:10px;align-items:center}
+.sync button{background:none;border:0;color:var(--peach);font-weight:600;font-size:13px;cursor:pointer;margin-left:auto;padding:4px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#b9ab95;margin-right:5px}
+.dot.ok{background:#3ccf73}.dot.wait{background:var(--peach);animation:blink 1s infinite}.dot.bad{background:#ff6b5e}
+@keyframes blink{50%{opacity:.3}}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(26px,6vw,34px);line-height:1.05;margin:4px 0 6px;color:var(--brown)}
+:root[data-theme=dark] h1{color:var(--peach)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) h1{color:var(--peach)}}
+.lead{color:var(--soft);margin:0 0 14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 5px 0 var(--brown);margin:0 0 20px}
+h2.tag{font-family:Oswald,sans-serif;font-weight:700;font-size:18px;margin:0 0 10px;display:inline-block;padding:2px 10px;background:var(--brown);color:var(--cream);border-radius:4px}
+label{display:block;font-weight:600;font-size:14px;margin:0 0 4px;color:var(--soft)}
+input[type=text],input[type=password]{width:100%;min-height:46px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--field);font-size:16px}
+input:focus{outline:3px solid var(--peach);border-color:var(--brown)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:10px 16px;border-radius:8px;border:0;background:var(--brown);color:var(--cream);font-weight:600;cursor:pointer;text-decoration:none}
+.btn:hover,.btn:focus-visible{background:var(--brown2);outline:3px solid var(--peach)}
+.btn.alt{background:var(--peach);color:#3a1a0c}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px dashed var(--line)}
+.btn.ok{background:var(--ok);color:#fff}
+.btn:disabled{opacity:.45;cursor:default;outline:none}
+.btn.wide{width:100%}
+.err{color:var(--bad);font-weight:600;margin:10px 0 0}
+.loading{text-align:center;color:var(--soft);padding:40px 0}
+.money{white-space:nowrap;font-variant-numeric:tabular-nums}
+/* sala */
+.sala{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 20px}
+.tav{position:relative;aspect-ratio:1/0.82;border-radius:16px;border:2px dashed var(--line);background:var(--field);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px;text-align:center}
+.tav .num{font-family:"Alfa Slab One",Georgia,serif;font-size:clamp(30px,9vw,46px);line-height:1}
+.tav .st{font-size:13px;color:var(--soft);line-height:1.2}
+.tav.busy{border:0;background:linear-gradient(160deg,#a06a40,var(--wood) 55%,#6e4426);color:var(--cream);box-shadow:inset 0 -6px 0 #0003,0 5px 0 var(--brown2)}
+.tav.busy .st{color:#ffe6c9;font-weight:600}
+.tav:focus-visible{outline:3px solid var(--peach);outline-offset:2px}
+.badge{position:absolute;top:8px;right:8px;background:var(--peach);color:#3a1a0c;font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px}
+/* menù */
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.top h1{margin:0;margin-right:auto}
+.sec{font-family:Oswald,sans-serif;font-weight:700;font-size:18px;color:var(--cream);background:var(--brown);border-radius:6px;padding:4px 12px;margin:22px 0 4px}
+.dish{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:10px 2px;border-bottom:1px dashed var(--line)}
+.dish b{font-weight:600;display:block;line-height:1.25}
+.dish .pr{font-size:14px;color:var(--soft)}
+.dish.on{background:light-dark(#ffeccc,#3a2414);border-radius:8px;padding-inline:8px}
+.qty{display:flex;align-items:center;gap:6px}
+.qty span{min-width:26px;text-align:center;font-family:Oswald,sans-serif;font-weight:700;font-size:20px}
+.ico{width:44px;height:44px;flex:none;display:inline-grid;place-items:center;border-radius:10px;border:1.5px solid var(--line);background:var(--field);cursor:pointer;font-size:22px;line-height:1;padding:0;font-weight:600}
+.ico.plus{background:var(--brown);border-color:var(--brown);color:var(--cream)}
+.ico:focus-visible{outline:3px solid var(--peach)}
+.notebtn{grid-column:1/-1;justify-self:start;background:none;border:0;color:var(--brown);font-weight:600;font-size:14px;padding:4px 0;cursor:pointer;min-height:32px}
+:root[data-theme=dark] .notebtn{color:var(--peach)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .notebtn{color:var(--peach)}}
+.dish input{grid-column:1/-1;min-height:40px}
+.free{display:grid;grid-template-columns:minmax(0,1fr) 110px auto;gap:8px;align-items:end}
+/* foglietto comanda */
+.ticket{list-style:none;margin:0;padding:0}
+.ticket li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dotted var(--line)}
+.ticket li:last-child{border-bottom:0}
+.ticket .q{font-family:Oswald,sans-serif;font-weight:700;min-width:30px}
+.ticket .n small{display:block;color:var(--soft);font-size:13px;font-style:italic}
+.ticket .new{color:var(--ok);font-size:12px;font-weight:700;margin-left:4px}
+.ticket .ico{width:36px;height:36px;font-size:18px}
+.tot{display:flex;justify-content:space-between;font-family:Oswald,sans-serif;font-weight:700;font-size:22px;border-top:2px solid var(--ink);margin-top:8px;padding-top:8px}
+/* cassa */
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.fig{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.fig b{display:block;font-family:Oswald,sans-serif;font-size:clamp(20px,5vw,28px);line-height:1.1}
+.fig span{font-size:13px;color:var(--soft)}
+.conti{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;align-items:start}
+.conto{margin:0;position:relative}
+.conto.vuoto{opacity:.6;box-shadow:none;border-style:dashed}
+.conto .hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.conto .hd h2{margin:0;margin-right:auto}
+.conto .acts{display:flex;gap:8px;margin-top:12px}
+.conto .acts .btn{flex:1;padding:8px 10px}
+.conto.fresh{box-shadow:0 5px 0 var(--peach);border-color:var(--peach)}
+.chiusi details{border-bottom:1px dashed var(--line);padding:8px 0}
+.chiusi summary{cursor:pointer;display:flex;gap:10px;align-items:center;min-height:40px}
+.chiusi summary b{margin-left:auto}
+.empty{color:var(--soft);font-style:italic;margin:4px 0}
+/* barra in basso */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--brown);color:var(--cream);border-top:4px solid var(--peach);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.bar .in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.bar .msg{flex:1;line-height:1.25;font-size:14px}
+.bar .msg b{display:block;font-size:17px;font-family:Oswald,sans-serif;white-space:nowrap}
+.bar .btn{background:var(--peach);color:#3a1a0c;min-width:130px}
+.bar .btn.ghost{background:none;color:var(--cream);border-color:#fffcdf66;min-width:0}
+.toast{position:fixed;left:50%;top:96px;transform:translateX(-50%);z-index:9;background:#111;color:#fff;padding:10px 16px;border-radius:8px;font-weight:600;box-shadow:0 8px 24px #0006;max-width:calc(100% - 32px)}
+@media(max-width:600px){.sala{gap:10px}.free{grid-template-columns:minmax(0,1fr) 90px}.free .btn{grid-column:1/-1}.figs{gap:6px}.fig{padding:8px}}
+@media(prefers-reduced-motion:reduce){.dot.wait{animation:none}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="in">
+    <div class="logo"><img src="../gestione/icona-180.png" alt=""><span>American Bar<small>ORDINI AI TAVOLI</small></span></div>
+    <div class="mode" id="mode" hidden>
+      <button id="mCam" aria-pressed="true">Cameriere</button>
+      <button id="mCas" aria-pressed="false">Cassa</button>
+    </div>
+  </div>
+  <div class="sync" id="sync" hidden><span id="syncTxt"><span class="dot"></span>Collegamento…</span><button id="logout">Esci</button></div>
+</nav>
+
+<main>
+  <section id="login" hidden>
+    <h1>Ordini ai tavoli</h1>
+    <p class="lead">Serve la stessa chiave di GitHub che usi per la gestione del menù. Si inserisce una volta sola: poi il telefono se la ricorda.</p>
+    <div class="card">
+      <h2 class="tag">Chiave di accesso</h2>
+      <form id="loginForm">
+        <label for="token">Incolla qui la chiave (inizia con <b>github_pat_</b>)</label>
+        <input type="password" id="token" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" required>
+        <p class="err" id="loginErr" hidden></p>
+        <button class="btn wide" style="margin-top:12px" id="loginBtn">Entra</button>
+      </form>
+      <p class="lead" style="margin:12px 0 0;font-size:14px" id="iosTip" hidden>Su iPhone: prima premi <b>Condividi → Aggiungi alla schermata Home</b>, apri l'icona <b>Ordini Bar</b> e incolla la chiave lì.</p>
+    </div>
+  </section>
+
+  <section id="app" hidden>
+    <div class="loading" id="loading">Carico menù e tavoli…</div>
+
+    <!-- CAMERIERE: scelta tavolo -->
+    <div id="vSala" hidden>
+      <h1>Che tavolo?</h1>
+      <p class="lead" id="menuDay"></p>
+      <div class="sala" id="sala"></div>
+    </div>
+
+    <!-- CAMERIERE: comanda -->
+    <div id="vTav" hidden>
+      <div class="top">
+        <button class="btn ghost" id="back">← Tavoli</button>
+        <h1 id="tavTitle"></h1>
+      </div>
+      <div id="menuList"></div>
+      <div class="sec">Fuori menù</div>
+      <div class="free" style="margin:10px 0 24px">
+        <div><label for="fName">Voce (es. caffè, acqua)</label><input type="text" id="fName" autocomplete="off"></div>
+        <div><label for="fPrice">Prezzo</label><input type="text" id="fPrice" inputmode="decimal" placeholder="1,50" autocomplete="off"></div>
+        <button class="btn alt" id="fAdd">＋ Aggiungi</button>
+      </div>
+      <div class="card" id="already"></div>
+    </div>
+
+    <!-- CASSA -->
+    <div id="vCassa" hidden>
+      <h1>Cassa</h1>
+      <div class="figs" id="figs"></div>
+      <div class="conti" id="conti"></div>
+      <div class="card chiusi" style="margin-top:24px">
+        <h2 class="tag">Conti chiusi oggi</h2>
+        <div id="chiusi"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="bar" id="bar" hidden><div class="in">
+  <div class="msg" id="barMsg"></div>
+  <button class="btn ghost" id="clear">Svuota</button>
+  <button class="btn" id="send" disabled>Invia comanda</button>
+</div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+{
+const REPO = "americanbarmesiano/americanbarmesiano.github.io";
+const API = "https://api.github.com/repos/" + REPO;
+const OBR = "ordini";                 // ramo dove stanno gli ordini (non è il sito)
+const KEY = "abm-menu-token";         // stessa chiave della pagina gestione
+const TAVOLI = [1, 2, 3, 4, 5, 6];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const ls = { get: k => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }, del: k => { try { localStorage.removeItem(k); } catch (e) {} } };
+const toB64 = str => { const b = new TextEncoder().encode(str); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(s); };
+const fromB64 = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g, "")), c => c.charCodeAt(0)));
+const cents = s => { const m = String(s || "").replace(/\s/g, "").match(/(\d+)(?:[.,](\d{1,2}))?/); return m ? +m[1] * 100 + (m[2] ? +m[2].padEnd(2, "0") : 0) : 0; };
+const eur = c => (c / 100).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+const hhmm = t => new Date(t).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+const dayKey = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let toastT;
+const toast = t => { const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2600); };
+
+let token = ls.get(KEY);
+const raw = (path, opts = {}, extra = {}) => fetch(API + path, { cache: "no-store", ...opts, headers: { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token, "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? { "Content-Type": "application/json" } : {}), ...extra } });
+const gh = async (path, opts) => { const r = await raw(path, opts); let b = null; try { b = await r.json(); } catch (e) {} if (!r.ok) { const e = new Error((b && b.message) || ("Errore " + r.status)); e.status = r.status; throw e; } return b; };
+
+// ---------- stato ----------
+let mode = ls.get("abm-ordini-modo") === "cassa" ? "cassa" : "cameriere";
+let menu = null, menuTag = null;
+let ord = { key: null, doc: null, sha: null, tag: null };
+let tavolo = null;      // tavolo aperto dal cameriere
+let pend = {};          // comanda in preparazione: chiave → {id,n,p,q,nota}
+let openNote = null;
+let sentFromCassa = false; // comanda aperta dalla cassa con "+ Aggiungi"
+const seen = new Map(); // id riga → quando l'ho vista arrivare (per "nuovo")
+let first = true;
+const empty = key => ({ giorno: key, rev: 0, righe: [], conti: [] });
+const rowsOf = t => ord.doc ? ord.doc.righe.filter(r => r.t === t) : [];
+const sum = rows => rows.reduce((a, r) => a + r.p * r.q, 0);
+const group = rows => { const g = new Map(); for (const r of rows) { const k = r.n + "|" + r.p + "|" + (r.nota || ""); const x = g.get(k) || { n: r.n, p: r.p, nota: r.nota || "", q: 0, ids: [], last: 0 }; x.q += r.q; x.ids.push(r.id); x.last = Math.max(x.last, seen.get(r.id) || 0); g.set(k, x); } return [...g.values()]; };
+
+// ---------- sincronizzazione con GitHub ----------
+const path = () => "/contents/giorni/" + ord.key + ".json";
+const setSync = (st, txt) => { $("syncTxt").innerHTML = '<span class="dot ' + st + '"></span>' + esc(txt); };
+
+async function pullOrders(force) {
+  const key = dayKey();
+  if (ord.key !== key) ord = { key, doc: null, sha: null, tag: null };
+  const r = await raw(path() + "?ref=" + OBR, {}, !force && ord.tag ? { "If-None-Match": ord.tag } : {});
+  if (r.status === 304) return false;
+  if (r.status === 404) { if (!ord.doc || force) { ord.doc = empty(key); ord.sha = null; } return true; }
+  if (r.status === 401) { logout("La chiave non è più valida."); return false; }
+  if (!r.ok) throw new Error("Errore " + r.status);
+  const b = await r.json();
+  const doc = JSON.parse(fromB64(b.content));
+  if (!force && ord.doc && (doc.rev || 0) < (ord.doc.rev || 0)) return false; // copia vecchia di GitHub
+  ord.doc = doc; ord.sha = b.sha; ord.tag = r.headers.get("ETag");
+  return true;
+}
+
+async function pullMenu() {
+  try {
+    const r = await raw("/contents/menu.json?ref=main", {}, menuTag ? { "If-None-Match": menuTag } : {});
+    if (r.status === 304) return false;
+    if (!r.ok) throw 0;
+    const b = await r.json(); menuTag = r.headers.get("ETag"); menu = JSON.parse(fromB64(b.content)); return true;
+  } catch (e) {
+    if (menu) return false;
+    menu = await (await fetch("../menu.json?v=" + Date.now(), { cache: "no-store" })).json(); return true;
+  }
+}
+
+async function makeBranch() {
+  const ref = await gh("/git/ref/heads/main");
+  await gh("/git/refs", { method: "POST", body: JSON.stringify({ ref: "refs/heads/" + OBR, sha: ref.object.sha }) });
+}
+
+// ogni modifica: rileggo, applico, salvo; se l'altro telefono ha scritto nel frattempo riprovo
+let queue = Promise.resolve();
+const mutate = (fn, msg) => (queue = queue.then(() => doMutate(fn, msg)));
+async function doMutate(fn, msg) {
+  setSync("wait", "Salvo…");
+  for (let i = 0; i < 6; i++) {
+    try {
+      if (!ord.doc || ord.key !== dayKey()) await pullOrders(true);
+      const d = JSON.parse(JSON.stringify(ord.doc));
+      fn(d); d.rev = (d.rev || 0) + 1;
+      const body = { message: msg, content: toB64(JSON.stringify(d, null, 1)), branch: OBR };
+      if (ord.sha) body.sha = ord.sha;
+      const r = await gh(path(), { method: "PUT", body: JSON.stringify(body) });
+      ord.doc = d; ord.sha = r.content.sha; ord.tag = null;
+      setSync("ok", "Salvato alle " + hhmm(Date.now()));
+      renderLive();
+      return true;
+    } catch (e) {
+      if (e.status === 409 || e.status === 422) { await sleep(500 + i * 400); try { await pullOrders(true); } catch (x) {} continue; }
+      if (e.status === 404 && /branch/i.test(e.message) && i === 0) { try { await makeBranch(); } catch (x) {} continue; }
+      if (e.status === 401) { logout("La chiave non è più valida."); return false; }
+      setSync("bad", "Non salvato: " + (e.status === 403 ? "la chiave non ha il permesso di scrivere" : "controlla la connessione"));
+      toast("Non salvato, riprova"); return false;
+    }
+  }
+  setSync("bad", "Non salvato: troppe modifiche insieme, riprova"); toast("Non salvato, riprova");
+  return false;
+}
+
+function markSeen() {
+  const now = Date.now(); let nuovi = 0;
+  for (const r of (ord.doc ? ord.doc.righe : [])) if (!seen.has(r.id)) { seen.set(r.id, first ? 0 : now); if (!first) nuovi++; }
+  first = false;
+  return nuovi;
+}
+
+let busyTick = false, tickN = 0;
+async function tick(forceMenu) {
+  if (busyTick || !token) return; busyTick = true;
+  try {
+    const mc = (forceMenu || tickN % 3 === 0) ? await pullMenu() : false;
+    const oc = await pullOrders(false);
+    tickN++;
+    const nuovi = oc ? markSeen() : 0;
+    if (mc) renderMenu();
+    if (oc || mc) renderLive();
+    if (nuovi && mode === "cassa") toast(nuovi === 1 ? "Nuova voce ordinata" : nuovi + " nuove voci ordinate");
+    setSync("ok", "In linea · aggiornato alle " + new Date().toLocaleTimeString("it-IT"));
+  } catch (e) { setSync("bad", "Senza connessione, riprovo…"); }
+  busyTick = false;
+}
+
+// ---------- disegno ----------
+function show() {
+  const ready = !!(menu && ord.doc);
+  $("loading").hidden = ready;
+  $("mCam").setAttribute("aria-pressed", mode === "cameriere");
+  $("mCas").setAttribute("aria-pressed", mode === "cassa");
+  $("vSala").hidden = !ready || mode !== "cameriere" || tavolo !== null;
+  $("vTav").hidden = !ready || mode !== "cameriere" || tavolo === null;
+  $("vCassa").hidden = !ready || mode !== "cassa";
+  renderBar();
+}
+
+function renderSala() {
+  $("menuDay").textContent = menu ? "Menù di " + (menu.data || "oggi") + " · si aggiorna da solo quando lo modifichi" : "";
+  $("sala").innerHTML = TAVOLI.map(t => {
+    const rows = rowsOf(t), n = rows.reduce((a, r) => a + r.q, 0);
+    return '<button class="tav' + (n ? " busy" : "") + '" data-t="' + t + '" aria-label="Tavolo ' + t + '"><span class="num">' + t + '</span><span class="st">' +
+      (n ? n + (n === 1 ? " voce" : " voci") + ' · <span class="money">' + eur(sum(rows)) + "</span>" : "Libero") + "</span></button>";
+  }).join("");
+}
+
+function renderMenu() {
+  if (tavolo === null || !menu) return;
+  if (document.activeElement && document.activeElement.closest && document.activeElement.closest("#menuList input")) return; // non disturbare chi scrive
+  const secs = (menu.sezioni || []).filter(s => (s.piatti || []).length);
+  $("menuList").innerHTML = secs.length ? secs.map(s => '<div class="sec">' + esc(s.titolo || "Altro") + "</div>" + s.piatti.map(p => {
+    const k = "m|" + p.nome + "|" + cents(p.prezzo), it = pend[k], q = it ? it.q : 0;
+    return '<div class="dish' + (q ? " on" : "") + '"><div><b>' + esc(p.nome) + '</b><span class="pr money">' + (cents(p.prezzo) ? eur(cents(p.prezzo)) : esc(p.prezzo)) + '</span></div>' +
+      '<div class="qty">' + (q ? '<button class="ico" data-k="' + esc(k) + '" data-d="-1" aria-label="Togli ' + esc(p.nome) + '">−</button><span>' + q + "</span>" : "") +
+      '<button class="ico plus" data-k="' + esc(k) + '" data-d="1" data-n="' + esc(p.nome) + '" data-p="' + cents(p.prezzo) + '" aria-label="Aggiungi ' + esc(p.nome) + '">+</button></div>' +
+      (q ? (openNote === k || it.nota ? '<input type="text" data-note="' + esc(k) + '" value="' + esc(it.nota) + '" placeholder="Nota per la cucina (es. senza cipolla)" aria-label="Nota per ' + esc(p.nome) + '">' : '<button class="notebtn" data-open="' + esc(k) + '">✎ Aggiungi nota</button>') : "") +
+      "</div>";
+  }).join("")).join("") : '<p class="empty">Il menù di oggi è vuoto: usa “Fuori menù”.</p>';
+  // voci fuori menù già nella comanda
+  const extra = Object.entries(pend).filter(([k]) => k.startsWith("f|"));
+  if (extra.length) $("menuList").innerHTML += '<div class="sec">Aggiunti a mano</div>' + extra.map(([k, it]) =>
+    '<div class="dish on"><div><b>' + esc(it.n) + '</b><span class="pr money">' + eur(it.p) + '</span></div><div class="qty"><button class="ico" data-k="' + esc(k) + '" data-d="-1" aria-label="Togli">−</button><span>' + it.q + '</span><button class="ico plus" data-k="' + esc(k) + '" data-d="1" aria-label="Aggiungi">+</button></div></div>').join("");
+}
+
+const ticketHTML = (rows, t, withBtns) => {
+  const g = group(rows), now = Date.now();
+  return g.length ? '<ul class="ticket">' + g.map(x => '<li><span class="q">' + x.q + '×</span><span class="n">' + esc(x.n) +
+    (x.last && now - x.last < 120000 ? '<span class="new">NUOVO</span>' : "") + (x.nota ? "<small>" + esc(x.nota) + "</small>" : "") +
+    '</span><span class="money">' + eur(x.p * x.q) + "</span>" +
+    (withBtns ? '<button class="ico" data-rm="' + esc(x.ids[x.ids.length - 1]) + '" data-t="' + t + '" aria-label="Togli un ' + esc(x.n) + '">−</button>' : "<span></span>") + "</li>").join("") + "</ul>" +
+    '<div class="tot"><span>Totale</span><span class="money">' + eur(sum(rows)) + "</span></div>" : '<p class="empty">Ancora niente.</p>';
+};
+
+function renderAlready() {
+  if (tavolo === null) return;
+  $("tavTitle").textContent = "Tavolo " + tavolo;
+  $("already").innerHTML = '<h2 class="tag">Già ordinato al tavolo ' + tavolo + "</h2>" + ticketHTML(rowsOf(tavolo), tavolo, true);
+}
+
+function renderCassa() {
+  if (!ord.doc) return;
+  const open = TAVOLI.filter(t => rowsOf(t).length);
+  const daInc = sum(ord.doc.righe), inc = ord.doc.conti.reduce((a, c) => a + c.tot, 0), now = Date.now();
+  $("figs").innerHTML = '<div class="fig"><b>' + open.length + " / " + TAVOLI.length + '</b><span>tavoli occupati</span></div><div class="fig"><b class="money">' + eur(daInc) + '</b><span>da incassare</span></div><div class="fig"><b class="money">' + eur(inc) + "</b><span>incassato oggi (" + ord.doc.conti.length + " conti)</span></div>";
+  $("conti").innerHTML = TAVOLI.map(t => {
+    const rows = rowsOf(t), fresh = rows.some(r => seen.get(r.id) && now - seen.get(r.id) < 120000);
+    return '<div class="card conto' + (rows.length ? "" : " vuoto") + (fresh ? " fresh" : "") + '"><div class="hd"><h2 class="tag">Tavolo ' + t + "</h2>" +
+      (fresh ? '<span class="badge" style="position:static">nuovo</span>' : "") + "</div>" +
+      (rows.length ? ticketHTML(rows, t, true) + '<div class="acts"><button class="btn ghost" data-add="' + t + '">＋ Aggiungi</button><button class="btn ok" data-close="' + t + '">Incassa</button></div>'
+        : '<p class="empty">Libero</p><div class="acts"><button class="btn ghost" data-add="' + t + '">＋ Apri ordine</button></div>') + "</div>";
+  }).join("");
+  const cc = ord.doc.conti.slice().reverse();
+  $("chiusi").innerHTML = cc.length ? cc.map(c => '<details><summary><span>Tavolo ' + c.t + "</span><span>" + hhmm(c.ora) + '</span><b class="money">' + eur(c.tot) + "</b></summary>" +
+    ticketHTML(c.righe, c.t, false) + '<button class="btn ghost" style="margin-top:10px" data-reopen="' + esc(c.id) + '">↺ Riapri questo conto</button></details>').join("") : '<p class="empty">Nessun conto chiuso finora.</p>';
+}
+
+function renderBar() {
+  const on = !$("app").hidden && mode === "cameriere" && tavolo !== null;
+  $("bar").hidden = !on;
+  if (!on) return;
+  const items = Object.values(pend), n = items.reduce((a, i) => a + i.q, 0);
+  $("barMsg").innerHTML = n ? "<b>Tav. " + tavolo + " · " + n + (n === 1 ? " voce" : " voci") + '</b><span class="money">' + eur(items.reduce((a, i) => a + i.p * i.q, 0)) + "</span>" : "<b>Tavolo " + tavolo + "</b>Tocca + sui piatti da ordinare";
+  $("send").disabled = !n; $("clear").hidden = !n;
+}
+
+function renderLive() {
+  document.title = "Ordini ai tavoli";
+  if (mode === "cassa") renderCassa(); else if (tavolo === null) renderSala(); else renderAlready();
+  show();
+}
+const renderAll = () => { renderMenu(); renderLive(); };
+
+// ---------- azioni ----------
+const openTavolo = t => { tavolo = t; pend = {}; openNote = null; $("fName").value = $("fPrice").value = ""; renderAll(); scrollTo(0, 0); };
+const setMode = m => { mode = m; ls.set("abm-ordini-modo", m); if (m === "cassa") tavolo = null; renderAll(); scrollTo(0, 0); };
+$("mCam").onclick = () => setMode("cameriere");
+$("mCas").onclick = () => setMode("cassa");
+$("back").onclick = () => { if (Object.keys(pend).length && !confirm("La comanda non è stata inviata. Tornare indietro lo stesso?")) return; tavolo = null; pend = {}; if (sentFromCassa) { sentFromCassa = false; mode = "cassa"; } renderAll(); };
+$("sala").onclick = e => { const b = e.target.closest("[data-t]"); if (b) openTavolo(+b.dataset.t); };
+
+$("menuList").onclick = e => {
+  const o = e.target.closest("[data-open]");
+  if (o) { openNote = o.dataset.open; renderMenu(); const i = document.querySelector('[data-note="' + CSS.escape(openNote) + '"]'); if (i) i.focus(); return; }
+  const b = e.target.closest("[data-k]"); if (!b) return;
+  const k = b.dataset.k, d = +b.dataset.d;
+  if (!pend[k]) { if (d < 0) return; pend[k] = { id: null, n: b.dataset.n, p: +b.dataset.p, q: 0, nota: "" }; }
+  pend[k].q += d;
+  if (pend[k].q <= 0) delete pend[k];
+  renderMenu(); renderBar();
+};
+$("menuList").addEventListener("input", e => { const k = e.target.dataset.note; if (k && pend[k]) pend[k].nota = e.target.value; });
+$("menuList").addEventListener("focusout", () => setTimeout(() => { if (!document.activeElement || !document.activeElement.closest("#menuList input")) renderMenu(); }, 0));
+
+$("fAdd").onclick = () => {
+  const n = $("fName").value.trim(), p = cents($("fPrice").value);
+  if (!n) { $("fName").focus(); return; }
+  const k = "f|" + n + "|" + p;
+  pend[k] = pend[k] || { id: null, n, p, q: 0, nota: "" }; pend[k].q++;
+  $("fName").value = $("fPrice").value = ""; renderMenu(); renderBar(); toast(n + " aggiunto alla comanda");
+};
+
+$("clear").onclick = () => { if (confirm("Svuotare la comanda?")) { pend = {}; renderMenu(); renderBar(); } };
+$("send").onclick = async () => {
+  const t = tavolo, items = Object.values(pend).filter(i => i.q > 0); if (!items.length) return;
+  for (const i of items) i.id = i.id || uid(); // stessi id se si riprova: niente doppioni
+  const chi = mode === "cassa" ? "cassa" : "cameriere";
+  $("send").disabled = true; $("send").textContent = "Invio…";
+  const ok = await mutate(d => { for (const i of items) if (!d.righe.some(r => r.id === i.id)) d.righe.push({ id: i.id, t, n: i.n, p: i.p, q: i.q, nota: i.nota.trim(), ora: Date.now(), da: chi }); },
+    "Tavolo " + t + ": " + items.map(i => i.q + "× " + i.n).join(", "));
+  $("send").textContent = "Invia comanda";
+  if (ok) { for (const i of items) seen.set(i.id, 0); toast("Comanda del tavolo " + t + " inviata ✓"); pend = {}; tavolo = null; if (sentFromCassa) { sentFromCassa = false; mode = "cassa"; } renderAll(); scrollTo(0, 0); }
+  else renderBar();
+};
+
+document.addEventListener("click", async e => {
+  const rm = e.target.closest("[data-rm]");
+  if (rm) {
+    const id = rm.dataset.rm; rm.disabled = true;
+    await mutate(d => { const r = d.righe.find(x => x.id === id); if (!r) return; if (r.q > 1) r.q--; else d.righe = d.righe.filter(x => x.id !== id); }, "Tavolo " + rm.dataset.t + ": tolta una voce");
+    return;
+  }
+  const add = e.target.closest("[data-add]");
+  if (add) { sentFromCassa = true; mode = "cameriere"; openTavolo(+add.dataset.add); return; }
+  const cl = e.target.closest("[data-close]");
+  if (cl) {
+    const t = +cl.dataset.close, rows = rowsOf(t), ids = rows.map(r => r.id), tot = sum(rows);
+    if (!confirm("Incassare il tavolo " + t + "?\nTotale " + eur(tot))) return;
+    cl.disabled = true;
+    const ok = await mutate(d => { const mine = d.righe.filter(r => ids.includes(r.id)); if (!mine.length) return; d.righe = d.righe.filter(r => !ids.includes(r.id)); d.conti.push({ id: uid(), t, righe: mine, tot: sum(mine), ora: Date.now() }); }, "Tavolo " + t + ": conto chiuso " + eur(tot));
+    if (ok) toast("Tavolo " + t + " incassato: " + eur(tot));
+    return;
+  }
+  const ro = e.target.closest("[data-reopen]");
+  if (ro) {
+    const id = ro.dataset.reopen;
+    if (!confirm("Riaprire questo conto? Le voci tornano sul tavolo.")) return;
+    await mutate(d => { const c = d.conti.find(x => x.id === id); if (!c) return; d.conti = d.conti.filter(x => x.id !== id); d.righe.push(...c.righe); }, "Conto riaperto");
+  }
+});
+
+// ---------- accesso ----------
+const start = async () => {
+  $("login").hidden = true; $("app").hidden = false; $("mode").hidden = false; $("sync").hidden = false;
+  show();
+  await tick(true);
+  renderAll();
+};
+const logout = msg => { token = ""; ls.del(KEY); $("login").hidden = false; $("app").hidden = true; $("mode").hidden = true; $("sync").hidden = true; $("bar").hidden = true; if (msg) { $("loginErr").textContent = msg; $("loginErr").hidden = false; } };
+$("logout").onclick = () => { if (confirm("Uscire? Dovrai incollare di nuovo la chiave.")) logout(); };
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
+  const t = $("token").value.trim(); if (!t) return;
+  $("loginBtn").disabled = true; $("loginBtn").textContent = "Controllo…"; $("loginErr").hidden = true;
+  token = t;
+  try { await gh("/contents/menu.json?ref=main"); ls.set(KEY, t); $("token").value = ""; start(); }
+  catch (err) {
+    token = "";
+    $("loginErr").textContent = err.status === 401 ? "Chiave non valida: controlla di averla copiata tutta." : err.status === 404 || err.status === 403 ? "La chiave non può vedere il repository americanbarmesiano.github.io." : "Errore: " + err.message;
+    $("loginErr").hidden = false;
+  }
+  $("loginBtn").disabled = false; $("loginBtn").textContent = "Entra";
+};
+
+setInterval(() => { if (!document.hidden) tick(false); }, 4000);
+setInterval(() => { if (mode === "cassa" && !document.hidden) renderCassa(); }, 30000); // spegne le etichette "nuovo"
+document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(true); });
+window.addEventListener("beforeunload", e => { if (Object.keys(pend).length) { e.preventDefault(); e.returnValue = ""; } });
+
+const standalone = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
+$("iosTip").hidden = !((/iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) && !standalone);
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+
+if (token) start(); else logout();
+}
+</script>
+</body>
+</html>
