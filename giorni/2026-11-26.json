@@ -1,17 +1,6 @@
 {
  "giorno": "2026-11-26",
- "rev": 29,
- "righe": [
-  {
-   "id": "mwy2ey82xb5zj",
-   "t": 1,
-   "n": "Caffè",
-   "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795728551618,
-   "da": "cameriere"
-  }
- ],
+ "rev": 30,
+ "righe": [],
  "conti": []
 }
