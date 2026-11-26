@@ -1,13 +1,13 @@
 {
  "giorno": "2026-11-26",
- "rev": 22,
+ "rev": 23,
  "righe": [
   {
    "id": "mwy2ey82vdl9b",
    "t": 1,
    "n": "Patatine fritte",
    "p": 500,
-   "q": 3,
+   "q": 2,
    "nota": "",
    "ora": 1795728551618,
    "da": "cameriere"
