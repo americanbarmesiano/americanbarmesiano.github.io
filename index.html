@@ -191,7 +191,7 @@ const applyStato = st => {
   const bar = st.barChiuso || "", cuc = st.cucinaChiusa || "";
   chiusoOggi = { bar: bar === oggi, cucina: bar === oggi || cuc === oggi };
   if (bar === oggi) av.push(["Oggi il bar è chiuso", "Ci vediamo domani dalle 5:30!"]);
-  else if (cuc === oggi) av.push(["Oggi la cucina è chiusa", "Il bar è aperto come sempre per caffè, colazioni e panini."]);
+  else if (cuc === oggi) av.push(["Oggi la cucina è chiusa", "Il bar è aperto come sempre per caffè e colazioni."]);
   if (bar === domani) av.push(["Domani il bar sarà chiuso", "Oggi siamo aperti fino alle 15:30."]);
   else if (cuc === domani && bar !== oggi) av.push(["Domani la cucina sarà chiusa", "Il bar sarà aperto come sempre."]);
   document.getElementById("avvisi").innerHTML = av.map(a => '<div class="avviso" role="status"><b>' + esc(a[0]) + '</b>' + esc(a[1]) + '</div>').join("");
