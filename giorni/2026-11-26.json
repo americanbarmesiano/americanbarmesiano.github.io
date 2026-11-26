@@ -1,22 +1,12 @@
 {
  "giorno": "2026-11-26",
- "rev": 3,
+ "rev": 4,
  "righe": [
   {
    "id": "mwy23vdsqj9st",
    "t": 1,
    "n": "Tagliere salumi e formaggi",
    "p": 800,
-   "q": 1,
-   "nota": "",
-   "ora": 1795728034721,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwy23vdstnnx0",
-   "t": 1,
-   "n": "Insalata verde",
-   "p": 400,
    "q": 1,
    "nota": "",
    "ora": 1795728034721,
