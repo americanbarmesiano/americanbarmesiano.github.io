@@ -1,6 +1,77 @@
 {
  "giorno": "2026-11-26",
- "rev": 7,
- "righe": [],
+ "rev": 8,
+ "righe": [
+  {
+   "id": "mwy2btuapbnqp",
+   "t": 5,
+   "n": "Caprese con crudo",
+   "p": 700,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2btua9a627",
+   "t": 5,
+   "n": "Tagliere salumi e formaggi",
+   "p": 800,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2btua4v3sy",
+   "t": 5,
+   "n": "Patatine fritte",
+   "p": 500,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2btuak849z",
+   "t": 5,
+   "n": "Insalata mista",
+   "p": 700,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2btuaed39y",
+   "t": 5,
+   "n": "Acqua 0.5l",
+   "p": 50,
+   "q": 2,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2btuaz5s2z",
+   "t": 5,
+   "n": "Caffè",
+   "p": 100,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2btua3u40e",
+   "t": 5,
+   "n": "Amaro",
+   "p": 250,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728405971,
+   "da": "cameriere"
+  }
+ ],
  "conti": []
 }
