@@ -1,17 +1,7 @@
 {
  "giorno": "2026-11-26",
- "rev": 13,
+ "rev": 14,
  "righe": [
-  {
-   "id": "mwy2btuaed39y",
-   "t": 5,
-   "n": "Acqua 0.5l",
-   "p": 50,
-   "q": 1,
-   "nota": "",
-   "ora": 1795728405971,
-   "da": "cameriere"
-  },
   {
    "id": "mwy2btuaz5s2z",
    "t": 5,
