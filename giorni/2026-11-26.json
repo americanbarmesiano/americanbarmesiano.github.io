@@ -1,6 +1,67 @@
 {
  "giorno": "2026-11-26",
- "rev": 16,
- "righe": [],
+ "rev": 17,
+ "righe": [
+  {
+   "id": "mwy2ey82v70g9",
+   "t": 1,
+   "n": "Caprese con crudo",
+   "p": 700,
+   "q": 3,
+   "nota": "",
+   "ora": 1795728551618,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2ey8267pho",
+   "t": 1,
+   "n": "Heineken",
+   "p": 250,
+   "q": 2,
+   "nota": "",
+   "ora": 1795728551618,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2ey82vdl9b",
+   "t": 1,
+   "n": "Patatine fritte",
+   "p": 500,
+   "q": 3,
+   "nota": "",
+   "ora": 1795728551618,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2ey821m3nf",
+   "t": 1,
+   "n": "Grappa",
+   "p": 250,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728551618,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2ey82eq3co",
+   "t": 1,
+   "n": "Amaro",
+   "p": 250,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728551618,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwy2ey82xb5zj",
+   "t": 1,
+   "n": "Caffè",
+   "p": 100,
+   "q": 1,
+   "nota": "",
+   "ora": 1795728551618,
+   "da": "cameriere"
+  }
+ ],
  "conti": []
 }
