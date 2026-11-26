@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#723018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Menù Bar">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../icona-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../icona-192.png">
+<title>Chiusure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: un interruttore sul muro del bar, impossibile sbagliare
+   IDEA: il cartello "chiuso" appeso alla porta
+   PICTURE: due cartelli grandi, Cucina e Bar, verdi se aperti, rossi se chiusi
+   COLOUR/TYPE: marrone, crema e pesca del sito; rosso per chiuso; Alfa Slab One + Oswald + Work Sans
+   LAYOUT: una colonna sul telefono, due cartelli affiancati su schermo largo */
+:root{color-scheme:light dark;--bg:light-dark(#fffcdf,#1c120c);--ink:light-dark(#3a1a0c,#fbf3d8);--soft:light-dark(#6e4a36,#d2bfa4);--brown:#723018;--brown2:#55220f;--peach:#e9a46b;--cream:#fffcdf;--panel:light-dark(#fff6d2,#2a1b11);--field:light-dark(#fffdf0,#1c120c);--line:light-dark(#e6d3a6,#4a2f1f);--ok:#2f8f4e;--bad:#b3261e}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Work Sans",system-ui,sans-serif;overflow-x:clip;padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+nav{position:sticky;top:0;z-index:5;background:var(--brown);color:var(--cream);padding:0 16px;padding-top:env(safe-area-inset-top);border-bottom:4px solid var(--peach)}
+nav .in{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:6px;min-height:60px}
+nav .logo{display:flex;align-items:center;gap:10px;font-family:"Alfa Slab One",Georgia,serif;font-size:19px;margin-right:auto;line-height:1.1}
+nav .logo img{width:40px;height:40px;border-radius:50%;border:2px solid var(--peach);flex:none}
+nav .logo small{display:block;font-family:Oswald,sans-serif;font-weight:500;font-size:13px;letter-spacing:1px;color:var(--peach)}
+nav a{color:var(--cream);text-decoration:none;font-weight:600;font-size:14px;padding:10px;border-radius:6px;min-height:44px;display:inline-flex;align-items:center}
+nav a:hover,nav a:focus-visible{background:var(--brown2);color:var(--peach);outline:none}
+main{max-width:900px;margin:0 auto;padding:16px}
+h1{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(28px,6vw,36px);line-height:1.05;margin:8px 0 6px;color:var(--brown)}
+:root[data-theme=dark] h1{color:var(--peach)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) h1{color:var(--peach)}}
+.lead{color:var(--soft);margin:0 0 18px}
+.signs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sign{position:relative;border-radius:14px;padding:22px 18px 18px;background:var(--panel);border:3px solid var(--ok);box-shadow:0 6px 0 var(--ok);margin-top:22px}
+.sign::before{content:"";position:absolute;left:50%;top:-24px;width:70px;height:24px;margin-left:-35px;border:3px solid var(--soft);border-bottom:0;border-radius:40px 40px 0 0}
+.sign.chiuso{border-color:var(--bad);box-shadow:0 6px 0 var(--bad)}
+.sign.domani{border-color:var(--peach);box-shadow:0 6px 0 var(--peach)}
+.sign h2{font-family:Oswald,sans-serif;font-weight:700;font-size:20px;margin:0;color:var(--soft);letter-spacing:.5px}
+.sign .st{font-family:"Alfa Slab One",Georgia,serif;font-size:clamp(28px,7vw,38px);line-height:1.05;margin:4px 0 4px;color:var(--ok)}
+.sign.chiuso .st{color:var(--bad)}
+.sign.domani .st{color:#b8692c}
+.sign p{margin:0 0 14px;color:var(--soft);font-size:15px}
+.btn{display:flex;width:100%;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:10px 16px;border-radius:10px;border:0;background:var(--bad);color:#fff;font-weight:600;font-size:17px;cursor:pointer;margin-top:8px}
+.btn:hover,.btn:focus-visible{filter:brightness(.92);outline:3px solid var(--peach)}
+.btn.ok{background:var(--ok)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px dashed var(--line);font-size:15px;min-height:46px}
+.btn.brown{background:var(--brown);color:var(--cream)}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 5px 0 var(--brown);margin:20px 0}
+label{display:block;font-weight:600;font-size:14px;margin:0 0 4px;color:var(--soft)}
+input[type=password]{width:100%;min-height:46px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--field);font-size:16px}
+.err{color:var(--bad);font-weight:600;margin:10px 0 0}
+.loading{text-align:center;color:var(--soft);padding:40px 0}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--brown);color:var(--cream);border-top:4px solid var(--peach);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bar .in{max-width:900px;margin:0 auto;font-size:14px;line-height:1.3}
+.bar b{display:block;font-size:15px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#b9ab95;margin-right:6px;vertical-align:1px}
+.dot.ok{background:#3ccf73}.dot.wait{background:var(--peach);animation:blink 1s infinite}.dot.bad{background:#ff6b5e}
+@keyframes blink{50%{opacity:.3}}
+@media(max-width:640px){.signs{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.dot.wait{animation:none}}
+</style>
+</head>
+<body>
+<nav><div class="in">
+  <div class="logo"><img src="../icona-180.png" alt=""><span>American Bar<small>CHIUSURE</small></span></div>
+  <a href="../">Menù</a>
+  <a href="../../" target="_blank" rel="noopener">Sito ↗</a>
+</div></nav>
+
+<main>
+  <section id="login" hidden>
+    <h1>Accedi</h1>
+    <p class="lead">Serve la stessa chiave di GitHub della gestione del menù.</p>
+    <div class="card">
+      <form id="loginForm">
+        <label for="token">Incolla qui la chiave (inizia con <b>github_pat_</b>)</label>
+        <input type="password" id="token" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" required>
+        <p class="err" id="loginErr" hidden></p>
+        <button class="btn brown" id="loginBtn">Entra</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="app" hidden>
+    <h1>Cucina e bar aperti?</h1>
+    <p class="lead">Premi un pulsante e sul sito compare un avviso rosso in alto. L'avviso vale solo per quel giorno: il giorno dopo sparisce da solo.</p>
+    <div class="loading" id="loading">Carico…</div>
+    <div class="signs" id="signs"></div>
+  </section>
+</main>
+
+<div class="bar" id="bar" hidden><div class="in" id="msg"></div></div>
+
+<script>
+{
+const REPO = "americanbarmesiano/americanbarmesiano.github.io";
+const API = "https://api.github.com/repos/" + REPO;
+const FILE = "stato.json";
+const KEY = "abm-menu-token";
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const ls = { get: () => { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }, set: v => { try { localStorage.setItem(KEY, v); } catch (e) {} }, del: () => { try { localStorage.removeItem(KEY); } catch (e) {} } };
+const toB64 = str => { const b = new TextEncoder().encode(str); let s = ""; for (const x of b) s += String.fromCharCode(x); return btoa(s); };
+const fromB64 = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g, "")), c => c.charCodeAt(0)));
+let token = ls.get();
+const gh = async (path, opts = {}) => {
+  const r = await fetch(API + path, { cache: "no-store", ...opts, headers: { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token, "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? { "Content-Type": "application/json" } : {}) } });
+  let b = null; try { b = await r.json(); } catch (e) {}
+  if (!r.ok) { const e = new Error((b && b.message) || ("Errore " + r.status)); e.status = r.status; throw e; }
+  return b;
+};
+// giorni in ora italiana, come li legge il sito
+const romeDay = add => { const p = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date(Date.now() + add * 864e5)); const g = t => p.find(x => x.type === t).value; return g("year") + "-" + g("month") + "-" + g("day"); };
+const nomeGiorno = k => { const s = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(k + "T12:00:00Z")); return s; };
+const setMsg = (st, t, sub) => { $("bar").hidden = false; $("msg").innerHTML = '<b><span class="dot ' + st + '"></span>' + esc(t) + "</b>" + esc(sub || ""); };
+
+let stato = null, sha = null, busy = false, watchT;
+const PARTI = [
+  { k: "cucinaChiusa", nome: "Cucina", f: "la cucina", ap: "Aperta", ch: "Chiusa" },
+  { k: "barChiuso", nome: "Bar", f: "il bar", ap: "Aperto", ch: "Chiuso" }
+];
+
+const render = () => {
+  const oggi = romeDay(0), domani = romeDay(1);
+  $("loading").hidden = true;
+  $("signs").innerHTML = PARTI.map(p => {
+    const v = stato[p.k] || "";
+    const isOggi = v === oggi, isDomani = v === domani;
+    const cls = isOggi ? "chiuso" : isDomani ? "domani" : "";
+    const st = isOggi ? p.ch + " oggi" : isDomani ? p.ch + " domani" : p.ap;
+    const sub = isOggi ? "Sul sito c'è scritto: “Oggi " + p.f + " è " + p.ch.toLowerCase() + "”." : isDomani ? "Sul sito c'è scritto: “Domani " + p.f + " sarà " + p.ch.toLowerCase() + "” (" + nomeGiorno(domani) + ")." : "Nessun avviso sul sito.";
+    return '<div class="sign ' + cls + '"><h2>' + p.nome.toUpperCase() + '</h2><div class="st">' + esc(st) + "</div><p>" + esc(sub) + "</p>" +
+      (isOggi || isDomani ? '<button class="btn ok" data-k="' + p.k + '" data-v="">✓ Togli l\'avviso: ' + esc(p.f) + " è " + p.ap.toLowerCase() + "</button>" : "") +
+      (!isOggi ? '<button class="btn" data-k="' + p.k + '" data-v="' + oggi + '">' + esc(p.nome) + " " + p.ch.toLowerCase() + " oggi</button>" : "") +
+      (!isDomani ? '<button class="btn ghost" data-k="' + p.k + '" data-v="' + domani + '">Avvisa che domani ' + esc(p.f) + " sarà " + p.ch.toLowerCase() + "</button>" : "") +
+      "</div>";
+  }).join("");
+};
+
+const load = async () => {
+  try {
+    const f = await gh("/contents/" + FILE + "?ref=main");
+    stato = JSON.parse(fromB64(f.content)); sha = f.sha;
+  } catch (e) {
+    if (e.status === 401) return logout("La chiave non è più valida.");
+    if (e.status !== 404) { setMsg("bad", "Non riesco a leggere lo stato", e.message); return; }
+    stato = { cucinaChiusa: "", barChiuso: "" }; sha = null;
+  }
+  render();
+  setMsg("ok", "Tutto pubblicato", "Il sito mostra questa situazione.");
+};
+
+$("signs").onclick = async e => {
+  const b = e.target.closest("[data-k]"); if (!b || busy) return;
+  busy = true; document.querySelectorAll("#signs button").forEach(x => x.disabled = true);
+  setMsg("wait", "Salvo…");
+  const k = b.dataset.k, v = b.dataset.v;
+  for (let i = 0; i < 3; i++) {
+    try {
+      const nuovo = { ...stato, [k]: v };
+      const body = { message: "Chiusure: " + (k === "barChiuso" ? "bar" : "cucina") + " " + (v ? "chiuso il " + v : "aperto"), content: toB64(JSON.stringify(nuovo, null, 1) + "\n"), branch: "main" };
+      if (sha) body.sha = sha;
+      const r = await gh("/contents/" + FILE, { method: "PUT", body: JSON.stringify(body) });
+      stato = nuovo; sha = r.content.sha; busy = false; render(); watch(JSON.stringify(nuovo)); return;
+    } catch (err) {
+      if ((err.status === 409 || err.status === 422) && i < 2) { const f = await gh("/contents/" + FILE + "?ref=main").catch(() => null); if (f) { stato = JSON.parse(fromB64(f.content)); sha = f.sha; } continue; }
+      busy = false; render();
+      if (err.status === 401) return logout("La chiave non è più valida.");
+      setMsg("bad", "Non salvato", err.status === 403 ? "La chiave non ha il permesso di scrivere." : "Controlla la connessione e riprova."); return;
+    }
+  }
+};
+
+// controlla quando il sito mostra davvero il nuovo stato
+const watch = want => {
+  clearTimeout(watchT);
+  const start = Date.now();
+  const tick = async () => {
+    const secs = Math.round((Date.now() - start) / 1000);
+    try { const live = await (await fetch("../../" + FILE + "?v=" + Date.now(), { cache: "no-store" })).json(); if (JSON.stringify({ ...{ cucinaChiusa: "", barChiuso: "" }, ...live }) === want) { setMsg("ok", "Online! ✓", "Il sito è aggiornato."); return; } } catch (e) {}
+    if (secs < 240) { setMsg("wait", "Salvato. Sto aggiornando il sito…", "Di solito ci vuole circa un minuto (" + secs + " s)."); watchT = setTimeout(tick, 6000); return; }
+    setMsg("bad", "GitHub è in ritardo", "È salvato: il sito si aggiornerà a breve.");
+  };
+  tick();
+};
+
+const show = on => { $("login").hidden = on; $("app").hidden = !on; };
+const logout = msg => { token = ""; ls.del(); show(false); $("bar").hidden = true; if (msg) { $("loginErr").textContent = msg; $("loginErr").hidden = false; } };
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
+  const t = $("token").value.trim(); if (!t) return;
+  $("loginBtn").disabled = true; $("loginErr").hidden = true; token = t;
+  try { await gh("/contents/menu.json?ref=main"); ls.set(t); $("token").value = ""; show(true); load(); }
+  catch (err) { token = ""; $("loginErr").textContent = err.status === 401 ? "Chiave non valida: controlla di averla copiata tutta." : "La chiave non può vedere il repository del sito."; $("loginErr").hidden = false; }
+  $("loginBtn").disabled = false;
+};
+document.addEventListener("visibilitychange", () => { if (!document.hidden && token && !busy) load(); });
+if (token) { show(true); load(); } else show(false);
+}
+</script>
+</body>
+</html>

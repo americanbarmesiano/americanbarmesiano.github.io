@@ -78,6 +78,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-ite
 footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin-right:10px}
 @media(max-width:860px){.info{grid-template-columns:minmax(0,1fr)}.room{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.cols{grid-template-columns:minmax(0,1fr)}nav .logo span{font-size:17px}nav .links a{padding:10px 8px;font-size:14px}.hero .btn{margin-left:0}}
+.avviso{background:#b3261e;color:#fff;padding:14px max(5vw,16px);text-align:center;font-weight:600;font-size:17px;line-height:1.35;border-bottom:4px solid #7d1a14}
+.avviso b{display:block;font-family:"Alfa Slab One",Georgia,serif;font-weight:400;font-size:clamp(22px,4vw,30px);line-height:1.1}
+.avviso+.avviso{border-top:1px solid #ffffff40}
+.closed-msg{grid-column:1/-1;text-align:center;font-family:"Alfa Slab One",Georgia,serif;font-size:clamp(22px,4vw,30px);color:#b3261e;margin:16px 0 0;line-height:1.2}
+.status.shut i{background:#ff6b5e;box-shadow:0 0 0 4px #ff6b5e40}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.badge{animation:none}}
 </style>
 </head>
@@ -86,6 +91,7 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
   <a class="logo" href="#top"><img src="logo.jpg" alt=""><span>American Bar</span></a>
   <div class="links"><a href="#menu">Menù</a><a href="#locale">Il locale</a><a href="#orari">Orari</a><a href="#dove">Dove siamo</a></div>
 </div></nav>
+<div id="avvisi"></div>
 
 <header class="hero" id="top">
   <div class="in">
@@ -176,11 +182,30 @@ const renderMenu = menu => {
 };
 window.renderMenu = renderMenu;
 // in anteprima (pagina di gestione) il menù arriva dalla pagina che modifica
+// ===== CHIUSURE =====
+// stato.json si modifica dal telefono su /gestione/chiusure/ : contiene la data (AAAA-MM-GG) del giorno di chiusura
+const romeDay = add => { const d = new Date(Date.now() + add * 864e5); const p = new Intl.DateTimeFormat("en-CA", {timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit"}).formatToParts(d); const g = t => p.find(x => x.type === t).value; return g("year") + "-" + g("month") + "-" + g("day"); };
+let chiusoOggi = { bar: false, cucina: false };
+const applyStato = st => {
+  const oggi = romeDay(0), domani = romeDay(1), av = [];
+  const bar = st.barChiuso || "", cuc = st.cucinaChiusa || "";
+  chiusoOggi = { bar: bar === oggi, cucina: bar === oggi || cuc === oggi };
+  if (bar === oggi) av.push(["Oggi il bar è chiuso", "Ci vediamo domani dalle 5:30!"]);
+  else if (cuc === oggi) av.push(["Oggi la cucina è chiusa", "Il bar è aperto come sempre per caffè, colazioni e panini."]);
+  if (bar === domani) av.push(["Domani il bar sarà chiuso", "Oggi siamo aperti fino alle 15:30."]);
+  else if (cuc === domani && bar !== oggi) av.push(["Domani la cucina sarà chiusa", "Il bar sarà aperto come sempre."]);
+  document.getElementById("avvisi").innerHTML = av.map(a => '<div class="avviso" role="status"><b>' + esc(a[0]) + '</b>' + esc(a[1]) + '</div>').join("");
+  if (chiusoOggi.bar) { const el = document.getElementById("status"); el.classList.remove("open"); el.classList.add("shut"); el.querySelector("span").textContent = "Oggi chiuso"; }
+  if (chiusoOggi.cucina) document.getElementById("menuCols").innerHTML = '<p class="closed-msg">' + (chiusoOggi.bar ? "Oggi il bar è chiuso" : "Oggi la cucina è chiusa") + '</p>';
+};
+window.applyStato = applyStato;
 if (!/[?&]anteprima/.test(location.search)) {
+  const stato = fetch("stato.json?v=" + Date.now(), {cache: "no-store"}).then(r => r.ok ? r.json() : {}).catch(() => ({}));
   fetch("menu.json?v=" + Date.now(), {cache: "no-store"})
     .then(r => { if (!r.ok) throw r; return r.json(); })
     .then(renderMenu)
-    .catch(() => { document.getElementById("menuCols").innerHTML = '<p class="note" style="grid-column:1/-1">Menù non disponibile in questo momento: chiedi al banco!</p>'; });
+    .catch(() => { document.getElementById("menuCols").innerHTML = '<p class="note" style="grid-column:1/-1">Menù non disponibile in questo momento: chiedi al banco!</p>'; })
+    .then(() => stato).then(applyStato);
 }
 
 // sciarpe da stadio
@@ -211,6 +236,7 @@ try {
   const h = +parts.find(p => p.type === "hour").value, m = +parts.find(p => p.type === "minute").value;
   const t = h * 60 + m, open = t >= 330 && t < 930;
   const st = document.getElementById("status");
+  if (st.classList.contains("shut")) throw 0;
   st.classList.toggle("open", open);
   st.querySelector("span").textContent = open ? "Aperto adesso · fino alle 15:30" : "Ora chiuso · apriamo alle 5:30";
 } catch (e) {}
