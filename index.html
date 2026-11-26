@@ -83,7 +83,7 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
 .avviso+.avviso{border-top:1px solid #ffffff40}
 .closed-msg{grid-column:1/-1;text-align:center;font-family:"Alfa Slab One",Georgia,serif;font-size:clamp(22px,4vw,30px);color:#b3261e;margin:16px 0 0;line-height:1.2}
 .status.shut i{background:#ff6b5e;box-shadow:0 0 0 4px #ff6b5e40}
-.rev-band{background:var(--brown2);color:var(--cream);text-align:center}
+.rev-band{background:var(--brown2);border-top:4px solid var(--peach);color:var(--cream);text-align:center}
 .rev{max-width:760px;margin:0 auto}
 .rev .stars{display:flex;justify-content:center;gap:clamp(6px,2vw,14px);margin:0 0 14px}
 .rev .stars svg{width:clamp(40px,9vw,64px);height:auto;filter:drop-shadow(0 4px 0 #0004)}
@@ -99,7 +99,7 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
 <body>
 <nav><div class="wrap">
   <a class="logo" href="#top"><img src="logo.jpg" alt=""><span>American Bar</span></a>
-  <div class="links"><a href="#menu">Menù</a><a href="#locale">Il locale</a><a href="#recensioni">Recensioni</a><a href="#orari">Orari</a><a href="#dove">Dove siamo</a></div>
+  <div class="links"><a href="#menu">Menù</a><a href="#locale">Il locale</a><a href="#orari">Orari</a><a href="#dove">Dove siamo</a></div>
 </div></nav>
 <div id="avvisi"></div>
 
@@ -131,6 +131,17 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
   </div>
 </section>
 
+<section class="band rev-band" id="recensioni">
+  <div class="rev">
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <h2>Ti è piaciuto? Dillo su Google.</h2>
+    <div class="btns">
+      <a class="btn alt" href="https://search.google.com/local/writereview?placeid=ChIJ6_YrbdZtFRMRLx3y4gOCn5k" target="_blank" rel="noopener">★ Scrivi una recensione</a>
+      <a class="btn line" href="https://www.google.com/maps/search/?api=1&amp;query=American+Bar+Mesiano&amp;query_place_id=ChIJ6_YrbdZtFRMRLx3y4gOCn5k" target="_blank" rel="noopener">Leggi le recensioni</a>
+    </div>
+  </div>
+</section>
+
 <section class="band" id="locale">
   <div class="wrap room">
     <figure><img src="interno.jpg" alt="L'interno dell'American Bar con maglie e sciarpe appese al soffitto" loading="lazy"></figure>
@@ -139,18 +150,6 @@ footer img{width:44px;height:44px;border-radius:50%;vertical-align:middle;margin
       <p>Maglie appese al soffitto, sciarpe delle trasferte lungo le pareti e la TV sempre pronta per la partita.</p>
       <p>Dal primo caffè delle 5:30 al pranzo di mezzogiorno, ti aspettiamo al banco.</p>
       <a class="btn" href="https://www.instagram.com/americanbarmesiano/" target="_blank" rel="noopener">Guarda le foto su Instagram</a>
-    </div>
-  </div>
-</section>
-
-<section class="band rev-band" id="recensioni">
-  <div class="rev">
-    <div class="stars" id="stars" aria-hidden="true"></div>
-    <h2>Ti siamo piaciuti?</h2>
-    <p>Lasciaci una recensione su Google: bastano pochi secondi. Ci aiuta tantissimo a farci conoscere.</p>
-    <div class="btns">
-      <a class="btn alt" href="https://search.google.com/local/writereview?placeid=ChIJ6_YrbdZtFRMRLx3y4gOCn5k" target="_blank" rel="noopener">★ Scrivi una recensione</a>
-      <a class="btn line" href="https://www.google.com/maps/search/?api=1&amp;query=American+Bar+Mesiano&amp;query_place_id=ChIJ6_YrbdZtFRMRLx3y4gOCn5k" target="_blank" rel="noopener">Leggi le recensioni</a>
     </div>
   </div>
 </section>
