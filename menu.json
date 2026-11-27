@@ -1,5 +1,5 @@
 {
-  "data": "Giovedì 26 novembre",
+  "data": "Venerdì 27 novembre",
   "sezioni": [
     {
       "titolo": "Antipasti",
@@ -74,6 +74,15 @@
         {
           "nome": "Grappa",
           "prezzo": "2,50 €"
+        }
+      ]
+    },
+    {
+      "titolo": "",
+      "piatti": [
+        {
+          "nome": "Coperto",
+          "prezzo": "1 €"
         }
       ]
     }
