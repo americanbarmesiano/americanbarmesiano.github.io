@@ -1,6 +1,27 @@
 {
  "giorno": "2026-11-27",
- "rev": 14,
- "righe": [],
+ "rev": 15,
+ "righe": [
+  {
+   "id": "mwyxrrd86b72x",
+   "t": 4,
+   "n": "Carbonara",
+   "p": 1000,
+   "q": 1,
+   "nota": "",
+   "ora": 1795781217359,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyxrrd94lwfx",
+   "t": 4,
+   "n": "Coperto",
+   "p": 100,
+   "q": 1,
+   "nota": "",
+   "ora": 1795781217359,
+   "da": "cameriere"
+  }
+ ],
  "conti": []
 }
