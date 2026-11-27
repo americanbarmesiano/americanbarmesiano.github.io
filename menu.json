@@ -16,11 +16,37 @@
     },
     {
       "titolo": "Primi",
-      "piatti": []
+      "piatti": [
+        {
+          "nome": "Spaghetti pomodoro e basilico",
+          "prezzo": "8 €"
+        },
+        {
+          "nome": "Fettuccine porcini",
+          "prezzo": "9 €"
+        },
+        {
+          "nome": "Fileja fagioli e cime di rapa",
+          "prezzo": "9 €"
+        },
+        {
+          "nome": "Spaghetti carbonara",
+          "prezzo": "10 €"
+        },
+        {
+          "nome": "Paccheri pomodoro, mozzarella e basilico",
+          "prezzo": "9 €"
+        }
+      ]
     },
     {
       "titolo": "Secondi",
-      "piatti": []
+      "piatti": [
+        {
+          "nome": "Hamburger scottona 200gr",
+          "prezzo": "9 €"
+        }
+      ]
     },
     {
       "titolo": "Insalate e contorni",
@@ -36,6 +62,10 @@
         {
           "nome": "Patatine fritte",
           "prezzo": "5 €"
+        },
+        {
+          "nome": "Fagioli e cime di rapa",
+          "prezzo": "8 €"
         }
       ]
     },
@@ -57,6 +87,14 @@
         {
           "nome": "Heineken",
           "prezzo": "2,50 €"
+        },
+        {
+          "nome": "Calice Vino",
+          "prezzo": "4 €"
+        },
+        {
+          "nome": "Cirò Rosso Santa Maria 0.75Cl",
+          "prezzo": "15 €"
         }
       ]
     },
