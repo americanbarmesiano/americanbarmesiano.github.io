@@ -1,17 +1,7 @@
 {
  "giorno": "2026-11-27",
- "rev": 12,
+ "rev": 13,
  "righe": [
-  {
-   "id": "mwyv9htdouyws",
-   "t": 1,
-   "n": "Tagliere salumi e formaggi",
-   "p": 800,
-   "q": 1,
-   "nota": "",
-   "ora": 1795777005938,
-   "da": "cameriere"
-  },
   {
    "id": "mwyv9htdflyj8",
    "t": 1,
