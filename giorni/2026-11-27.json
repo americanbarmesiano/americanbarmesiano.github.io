@@ -1,6 +1,6 @@
 {
  "giorno": "2026-11-27",
- "rev": 6,
+ "rev": 7,
  "righe": [
   {
    "id": "mwyshrn4e7fcp",
@@ -17,16 +17,6 @@
    "t": 3,
    "n": "Caffè",
    "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795772353073,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyshrn4unjlo",
-   "t": 3,
-   "n": "Acqua 0.5l",
-   "p": 50,
    "q": 1,
    "nota": "",
    "ora": 1795772353073,
