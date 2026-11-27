@@ -1,6 +1,6 @@
 {
  "giorno": "2026-11-27",
- "rev": 16,
+ "rev": 17,
  "righe": [
   {
    "id": "mwyxrrd86b72x",
@@ -40,6 +40,16 @@
    "q": 1,
    "nota": "",
    "ora": 1795781466348,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyxzm0gxuta3",
+   "t": 3,
+   "n": "Panino crudo pomodoro mozzarella",
+   "p": 500,
+   "q": 1,
+   "nota": "",
+   "ora": 1795781583665,
    "da": "cameriere"
   }
  ],
