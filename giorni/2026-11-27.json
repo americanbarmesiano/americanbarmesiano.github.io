@@ -1,6 +1,37 @@
 {
  "giorno": "2026-11-27",
- "rev": 5,
- "righe": [],
+ "rev": 6,
+ "righe": [
+  {
+   "id": "mwyshrn4e7fcp",
+   "t": 3,
+   "n": "Caprese con crudo",
+   "p": 700,
+   "q": 1,
+   "nota": "",
+   "ora": 1795772353073,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyshrn41uqxj",
+   "t": 3,
+   "n": "Caffè",
+   "p": 100,
+   "q": 1,
+   "nota": "",
+   "ora": 1795772353073,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyshrn4unjlo",
+   "t": 3,
+   "n": "Acqua 0.5l",
+   "p": 50,
+   "q": 1,
+   "nota": "",
+   "ora": 1795772353073,
+   "da": "cameriere"
+  }
+ ],
  "conti": []
 }
