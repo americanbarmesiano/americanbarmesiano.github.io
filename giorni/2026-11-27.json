@@ -1,7 +1,38 @@
 {
  "giorno": "2026-11-27",
- "rev": 20,
- "righe": [],
+ "rev": 21,
+ "righe": [
+  {
+   "id": "mwyz1a326s2b9",
+   "t": 6,
+   "n": "Fileja fagioli e cime di rapa",
+   "p": 900,
+   "q": 1,
+   "nota": "",
+   "ora": 1795783341136,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyz1a32yytv2",
+   "t": 6,
+   "n": "Calice Vino",
+   "p": 400,
+   "q": 1,
+   "nota": "",
+   "ora": 1795783341136,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyz1a329kci5",
+   "t": 6,
+   "n": "Tagliere salumi e formaggi",
+   "p": 800,
+   "q": 1,
+   "nota": "X1",
+   "ora": 1795783341136,
+   "da": "cameriere"
+  }
+ ],
  "conti": [
   {
    "id": "mwyy7zb3g4vfb",
