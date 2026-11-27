@@ -1,48 +1,7 @@
 {
  "giorno": "2026-11-27",
- "rev": 19,
- "righe": [
-  {
-   "id": "mwyxx3hmm3dkd",
-   "t": 3,
-   "n": "Coperto",
-   "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795781466348,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyxx3hmqv8ju",
-   "t": 3,
-   "n": "Coca-Cola/Fanta",
-   "p": 250,
-   "q": 1,
-   "nota": "",
-   "ora": 1795781466348,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyxzm0gxuta3",
-   "t": 3,
-   "n": "Panino crudo pomodoro mozzarella",
-   "p": 500,
-   "q": 1,
-   "nota": "",
-   "ora": 1795781583665,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyynmec0gx8c",
-   "t": 3,
-   "n": "Caffè",
-   "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795782703909,
-   "da": "cameriere"
-  }
- ],
+ "rev": 20,
+ "righe": [],
  "conti": [
   {
    "id": "mwyy7zb3g4vfb",
@@ -71,6 +30,54 @@
    ],
    "tot": 1100,
    "ora": 1795781974143
+  },
+  {
+   "id": "mwyynt4ie6npw",
+   "t": 3,
+   "righe": [
+    {
+     "id": "mwyxx3hmm3dkd",
+     "t": 3,
+     "n": "Coperto",
+     "p": 100,
+     "q": 1,
+     "nota": "",
+     "ora": 1795781466348,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyxx3hmqv8ju",
+     "t": 3,
+     "n": "Coca-Cola/Fanta",
+     "p": 250,
+     "q": 1,
+     "nota": "",
+     "ora": 1795781466348,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyxzm0gxuta3",
+     "t": 3,
+     "n": "Panino crudo pomodoro mozzarella",
+     "p": 500,
+     "q": 1,
+     "nota": "",
+     "ora": 1795781583665,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyynmec0gx8c",
+     "t": 3,
+     "n": "Caffè",
+     "p": 100,
+     "q": 1,
+     "nota": "",
+     "ora": 1795782703909,
+     "da": "cameriere"
+    }
+   ],
+   "tot": 950,
+   "ora": 1795782712626
   }
  ]
 }
