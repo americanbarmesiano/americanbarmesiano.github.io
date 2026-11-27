@@ -1,6 +1,6 @@
 {
  "giorno": "2026-11-27",
- "rev": 25,
+ "rev": 26,
  "righe": [
   {
    "id": "mwyz1a326s2b9",
@@ -50,6 +50,16 @@
    "q": 1,
    "nota": "",
    "ora": 1795783725489,
+   "da": "cameriere"
+  },
+  {
+   "id": "mwyznu329m56c",
+   "t": 6,
+   "n": "Calice Vino",
+   "p": 400,
+   "q": 1,
+   "nota": "",
+   "ora": 1795784393489,
    "da": "cameriere"
   }
  ],
