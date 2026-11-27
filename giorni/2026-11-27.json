@@ -1,68 +1,7 @@
 {
  "giorno": "2026-11-27",
- "rev": 26,
- "righe": [
-  {
-   "id": "mwyz1a326s2b9",
-   "t": 6,
-   "n": "Fileja fagioli e cime di rapa",
-   "p": 900,
-   "q": 1,
-   "nota": "",
-   "ora": 1795783341136,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyz1a32yytv2",
-   "t": 6,
-   "n": "Calice Vino",
-   "p": 400,
-   "q": 1,
-   "nota": "",
-   "ora": 1795783341136,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyz1a329kci5",
-   "t": 6,
-   "n": "Tagliere salumi e formaggi",
-   "p": 800,
-   "q": 1,
-   "nota": "X1",
-   "ora": 1795783341136,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyz3ut52e4jq",
-   "t": 6,
-   "n": "Coperto",
-   "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795783461307,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyz9inlh674v",
-   "t": 6,
-   "n": "Acqua 0.5l",
-   "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795783725489,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyznu329m56c",
-   "t": 6,
-   "n": "Calice Vino",
-   "p": 400,
-   "q": 1,
-   "nota": "",
-   "ora": 1795784393489,
-   "da": "cameriere"
-  }
- ],
+ "rev": 27,
+ "righe": [],
  "conti": [
   {
    "id": "mwyy7zb3g4vfb",
@@ -139,6 +78,74 @@
    ],
    "tot": 950,
    "ora": 1795782712626
+  },
+  {
+   "id": "mwz1darwndebu",
+   "t": 6,
+   "righe": [
+    {
+     "id": "mwyz1a326s2b9",
+     "t": 6,
+     "n": "Fileja fagioli e cime di rapa",
+     "p": 900,
+     "q": 1,
+     "nota": "",
+     "ora": 1795783341136,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyz1a32yytv2",
+     "t": 6,
+     "n": "Calice Vino",
+     "p": 400,
+     "q": 1,
+     "nota": "",
+     "ora": 1795783341136,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyz1a329kci5",
+     "t": 6,
+     "n": "Tagliere salumi e formaggi",
+     "p": 800,
+     "q": 1,
+     "nota": "X1",
+     "ora": 1795783341136,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyz3ut52e4jq",
+     "t": 6,
+     "n": "Coperto",
+     "p": 100,
+     "q": 1,
+     "nota": "",
+     "ora": 1795783461307,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyz9inlh674v",
+     "t": 6,
+     "n": "Acqua 0.5l",
+     "p": 100,
+     "q": 1,
+     "nota": "",
+     "ora": 1795783725489,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyznu329m56c",
+     "t": 6,
+     "n": "Calice Vino",
+     "p": 400,
+     "q": 1,
+     "nota": "",
+     "ora": 1795784393489,
+     "da": "cameriere"
+    }
+   ],
+   "tot": 2700,
+   "ora": 1795787261132
   }
  ]
 }
