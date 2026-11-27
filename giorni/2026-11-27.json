@@ -1,17 +1,7 @@
 {
  "giorno": "2026-11-27",
- "rev": 11,
+ "rev": 12,
  "righe": [
-  {
-   "id": "mwyv9htddvdwq",
-   "t": 1,
-   "n": "Fettuccine porcini",
-   "p": 900,
-   "q": 1,
-   "nota": "",
-   "ora": 1795777005938,
-   "da": "cameriere"
-  },
   {
    "id": "mwyv9htdouyws",
    "t": 1,
