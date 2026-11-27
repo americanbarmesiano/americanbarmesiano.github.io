@@ -1,27 +1,7 @@
 {
  "giorno": "2026-11-27",
- "rev": 17,
+ "rev": 18,
  "righe": [
-  {
-   "id": "mwyxrrd86b72x",
-   "t": 4,
-   "n": "Carbonara",
-   "p": 1000,
-   "q": 1,
-   "nota": "",
-   "ora": 1795781217359,
-   "da": "cameriere"
-  },
-  {
-   "id": "mwyxrrd94lwfx",
-   "t": 4,
-   "n": "Coperto",
-   "p": 100,
-   "q": 1,
-   "nota": "",
-   "ora": 1795781217359,
-   "da": "cameriere"
-  },
   {
    "id": "mwyxx3hmm3dkd",
    "t": 3,
@@ -53,5 +33,34 @@
    "da": "cameriere"
   }
  ],
- "conti": []
+ "conti": [
+  {
+   "id": "mwyy7zb3g4vfb",
+   "t": 4,
+   "righe": [
+    {
+     "id": "mwyxrrd86b72x",
+     "t": 4,
+     "n": "Carbonara",
+     "p": 1000,
+     "q": 1,
+     "nota": "",
+     "ora": 1795781217359,
+     "da": "cameriere"
+    },
+    {
+     "id": "mwyxrrd94lwfx",
+     "t": 4,
+     "n": "Coperto",
+     "p": 100,
+     "q": 1,
+     "nota": "",
+     "ora": 1795781217359,
+     "da": "cameriere"
+    }
+   ],
+   "tot": 1100,
+   "ora": 1795781974143
+  }
+ ]
 }
